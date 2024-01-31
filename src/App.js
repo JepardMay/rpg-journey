@@ -1,24 +1,114 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import {
+	createBrowserRouter,
+	RouterProvider,
+} from "react-router-dom";
+
+import Profile from './components/profile/Profile';
+import Skills from './components/skills/Skills';
+import Skill from './components/skills/Skill';
+import History from './components/history/History';
+import Themes from './components/themes/Themes';
+
+const levels = [0, 300, 900, 2700, 6500, 1400, 23000, 34000, 48000, 64000, 85000];
+
+const calculateLevel = (xp) => {
+	if (xp < levels[1]) return 1;
+	if (xp >= levels[1] && xp < levels[2]) return 2;
+	if (xp >= levels[2] && xp < levels[3]) return 3;
+	if (xp >= levels[3] && xp < levels[4]) return 4;
+	if (xp >= levels[4] && xp < levels[5]) return 5;
+	if (xp >= levels[5] && xp < levels[6]) return 6;
+	if (xp >= levels[6] && xp < levels[7]) return 7;
+	if (xp >= levels[7] && xp < levels[8]) return 8;
+	if (xp >= levels[8] && xp < levels[9]) return 9;
+	if (xp >= levels[9] && xp < levels[10]) return 10;
+}
+
+// to do: fix
+const calculatePercent = (el) => {
+	return `${100 * (el.xp - levels[el.level - 1]) / levels[el.level]}%`;
+}
 
 function App() {
+	const initialValue = localStorage.getItem('rpg-user-data')
+		? JSON.parse(localStorage.getItem('rpg-user-data'))
+		: {
+			name: 'Unknown',
+			theme: 'theme-1',
+			level: 1,
+			xp: 0,
+			skillsSorting: 'CC',
+			actionsSorting: 'CC',
+			activeTab: '',
+			skills: [
+				{
+					name: 'Endurance',
+					level: 1,
+					xp: 0,
+					actions: [
+						{
+							text: 'Run 10k',
+							xp: 100
+						},
+						{
+							text: 'Skip leg-day',
+							xp: -100
+						}
+					]
+				},
+				{
+					name: 'Strength',
+					level: 1,
+					xp: 0,
+					actions: [
+						{
+							text: 'Go to GYM',
+							xp: 200
+						},
+						{
+							text: 'Lie in bed the whole day',
+							xp: -200
+						}
+					]
+				}
+			],
+			history: [],
+		};
+
+	const [user, setUser] = useState(initialValue);
+
+	useEffect(() => {
+		localStorage.setItem('rpg-user-data', JSON.stringify(user));
+		document.body.classList.add(user.theme);
+	}, [user]);
+
+
+	const router = createBrowserRouter([
+		{
+			path: "/",
+			element: <Profile user={user} setUser={setUser} calculatePercent={calculatePercent} />,
+		},
+		{
+			path: "/skills",
+			element: <Skills user={user} setUser={setUser} calculatePercent={calculatePercent} />,
+		},
+		{
+			path: "/skill",
+			element: <Skill user={user} setUser={setUser} calculateLevel={calculateLevel} calculatePercent={calculatePercent} />,
+		},
+		{
+			path: "/history",
+			element: <History user={user} setUser={setUser} />,
+		},
+		{
+			path: "/themes",
+			element: <Themes user={user} setUser={setUser} />,
+		},
+	]);
+	
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+		<RouterProvider router={router} />
   );
 }
 

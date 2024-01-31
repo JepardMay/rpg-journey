@@ -1,0 +1,83 @@
+.theme-1 {
+  --main-color: var(--medium-purple);
+  --secondary-color: var(--slate-blue);
+  --contrast-color: var(--blizzard-blue);
+  --light-color: var(--cosmic-latte);
+}
+
+.theme-2 {
+  --main-color: var(--deep-sky-blue);
+  --secondary-color: var(--dodger-blue);
+  --contrast-color: var(--cream-brulee);
+  --light-color: var(--corn-field);
+}
+
+.theme-3 {
+  --main-color: var(--martinique);
+  --secondary-color: var(--blackcurrant);
+  --contrast-color: var(--padua);
+  --light-color: var(--tea-green);
+}
+
+.theme-4 {
+  --main-color: var(--allports);
+  --secondary-color: var(--astronaut-blue);
+  --contrast-color: var(--viking);
+  --light-color: var(--mint-green);
+}
+
+.theme-5 {
+  --main-color: var(--carissma);
+  --secondary-color: var(--purple-mountains-majesty);
+  --contrast-color: var(--melon);
+  --light-color: var(--amour);
+}
+
+.theme-6 {
+  --main-color: var(--feijoa);
+  --secondary-color: var(--your-pink);
+  --contrast-color: var(--tutu);
+  --light-color: var(--saltpan);
+}
+
+.theme-7 {
+  --main-color: var(--nepal);
+  --secondary-color: var(--hemp);
+  --contrast-color: var(--bone);
+  --light-color: var(--bleach-white);
+}
+
+.theme-8 {  
+  --main-color: var(--clover);
+  --secondary-color: var(--norway);
+  --contrast-color: var(--ottoman);
+  --light-color: var(--old-lace);
+}
+
+.theme-9 {  
+  --main-color: var(--affair);  
+  --secondary-color: var(--light-coral);
+  --contrast-color: var(--harvest-gold);  
+  --light-color: var(--honeysuckle);
+}
+
+.theme-10 {  
+  --main-color: var(--melanzane);  
+  --secondary-color: var(--meteorite); 
+  --contrast-color: var(--strikemaster);  
+  --light-color: var(--petite-orchid);
+}
+
+.theme-11 {  
+  --main-color: var(--bay-of-many);  
+  --secondary-color: var(--blue-gem);
+  --contrast-color: var(--deep-lilac);  
+  --light-color: var(--pale-magenta);
+}
+
+.theme-12 {  
+  --main-color: var(--nepal-2);  
+  --secondary-color: var(--heather); 
+  --contrast-color: var(--bleach-white-2);  
+  --light-color: var(--alabaster);
+}
