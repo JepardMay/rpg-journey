@@ -10,6 +10,7 @@ This app is only in the beginning of development, so only basic of intended feat
 
 ### What's next?
   - Improve overall design
+  - Add visual representation to history
   - Add the ability to create your own profile and add friends
   - Add challenges
 
