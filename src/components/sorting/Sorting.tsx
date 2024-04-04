@@ -1,34 +1,43 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
+import { StateType } from '../../model';
+
 import './sorting.css';
 
-function Sorting({ user, setUser }) {
-  const [listState, setListState] = useState(false);
+interface Props {
+  user: StateType;
+  setUser: (user: StateType) => void;
+}
+
+function Sorting({ user, setUser }: Props) {
+  const [listState, setListState] = useState<boolean>(false);
 
   const open = () => setListState(!listState);
 
-  const onSortingHandler = (evt) => {
-    if (!evt.target.closest('.sorting__list')) {
-      setListState(!listState);
+  const onSortingHandler = (evt: React.MouseEvent<HTMLElement>) => {
+    const { target } = evt;
+    if (target instanceof HTMLElement) {
+      if (!target.closest('.sorting__list')) {
+        setListState(!listState);
+      }
     }
-  }
+  };
 
-  const escFunction = useCallback((event) => {
-    if (event.key === "Escape") {
+  const escFunction = useCallback((evt: KeyboardEvent) => {
+    if (evt.key === 'Escape') {
       setListState(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    document.addEventListener("keydown", escFunction, false);
+    document.addEventListener('keydown', escFunction, false);
 
     return () => {
-      document.removeEventListener("keydown", escFunction, false);
+      document.removeEventListener('keydown', escFunction, false);
     };
   }, [escFunction]);
 
-  const sort = (currentSort) => {
+  const sort = (currentSort: string) => {
     if (window.location.pathname === '/skills') {
       if (currentSort === 'z-a') {
         setUser({
@@ -106,24 +115,55 @@ function Sorting({ user, setUser }) {
     }
 
     setListState(!listState);
-  }
-  
+  };
+
   return (
-    <div className={`sorting ${listState ? 'sorting--open' : ''}`} onClick={onSortingHandler}>
-      <button className="btn" type="button" onClick={() => open()}>{window.location.pathname === '/skill' ? user.actionsSorting : user.skillsSorting}</button>
+    <div
+      className={`sorting ${listState ? 'sorting--open' : ''}`}
+      onClick={onSortingHandler}
+    >
+      <button className="btn" type="button" onClick={() => open()}>
+        {window.location.pathname === '/skill'
+          ? user.actionsSorting
+          : user.skillsSorting}
+      </button>
       <div className="sorting__overlay"></div>
       <ul className="sorting__list">
         <li className="sorting__item">
-          <button type="button" className="sorting__btn" onClick={() => sort('a-z')}>A-Z</button>
+          <button
+            type="button"
+            className="sorting__btn"
+            onClick={() => sort('a-z')}
+          >
+            A-Z
+          </button>
         </li>
         <li className="sorting__item">
-          <button type="button" className="sorting__btn" onClick={() => sort('z-a')}>Z-A</button>
+          <button
+            type="button"
+            className="sorting__btn"
+            onClick={() => sort('z-a')}
+          >
+            Z-A
+          </button>
         </li>
         <li className="sorting__item">
-          <button type="button" className="sorting__btn" onClick={() => sort('xp-ascent')}>XP ↑</button>
+          <button
+            type="button"
+            className="sorting__btn"
+            onClick={() => sort('xp-ascent')}
+          >
+            XP ↑
+          </button>
         </li>
         <li className="sorting__item">
-          <button type="button" className="sorting__btn" onClick={() => sort('xp-descent')}>XP ↓</button>
+          <button
+            type="button"
+            className="sorting__btn"
+            onClick={() => sort('xp-descent')}
+          >
+            XP ↓
+          </button>
         </li>
       </ul>
     </div>

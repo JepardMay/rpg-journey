@@ -16,7 +16,8 @@
   border: 10px inset var(--light-color);
   border-radius: 8px;
   overflow: hidden;
-  transition: background-color var(--transition),
+  transition:
+    background-color var(--transition),
     border-color var(--transition);
 }
 
@@ -44,7 +45,8 @@
   background-color: var(--main-color);
   border: 4px inset var(--light-color);
   border-radius: 100px;
-  transition: background-color var(--transition),
+  transition:
+    background-color var(--transition),
     border-color var(--transition);
 }
 

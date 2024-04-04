@@ -3,6 +3,17 @@
   padding: 45px 0;
 }
 
+.history__header {
+  display: flex;
+  justify-content: space-between;
+  min-height: 50px;
+  margin-bottom: 20px;
+}
+
+.history__header .title {
+  margin-bottom: 0;
+}
+
 .history-item {
   display: flex;
   align-items: center;
@@ -57,7 +68,7 @@
   margin-right: 20px;
   font-weight: 700;
   font-size: 18px;
-  color: var(--secondary-color)
+  color: var(--secondary-color);
 }
 
 .history-item__xp {
