@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import { LevelObjectKeys } from './model';
 import { StateType } from './model';
 
 import Profile from './components/profile/Profile';
@@ -9,26 +10,35 @@ import Skill from './components/skills/Skill';
 import History from './components/history/History';
 import Themes from './components/themes/Themes';
 
-const levels = [
-  0, 300, 900, 2700, 6500, 1400, 23000, 34000, 48000, 64000, 85000,
-];
-
-const calculateLevel = (xp: number) => {
-  if (xp < levels[1]) return 1;
-  if (xp >= levels[1] && xp < levels[2]) return 2;
-  if (xp >= levels[2] && xp < levels[3]) return 3;
-  if (xp >= levels[3] && xp < levels[4]) return 4;
-  if (xp >= levels[4] && xp < levels[5]) return 5;
-  if (xp >= levels[5] && xp < levels[6]) return 6;
-  if (xp >= levels[6] && xp < levels[7]) return 7;
-  if (xp >= levels[7] && xp < levels[8]) return 8;
-  if (xp >= levels[8] && xp < levels[9]) return 9;
-  if (xp >= levels[9] && xp < levels[10]) return 10;
-  return 0;
+const levels:LevelObjectKeys = {
+  skill: [0, 300, 900, 2700, 6500, 1400, 23000, 34000, 48000, 64000, 85000],
+  user: [0, 300, 900, 2700, 6500, 1400, 23000, 34000, 48000, 64000, 85000],
 };
 
-const calculatePercent = (xp: number, level: number) => {
-  return `${((xp - levels[level - 1]) * 100) / (levels[level] - levels[level - 1])}%`;
+const calculateLevel = (xp: number, type: string) => {
+  const points: number[] = levels[type];
+  
+  if (!points) {
+    throw new Error(`Invalid type: ${type}`);
+  }
+
+  if (xp < points[0]) return 1;
+  for (let i = 0; i < points.length; i++) {
+    if (xp >= points[i] && xp < points[i + 1]) {
+      return i + 1;
+    }
+  }
+  return points.length;
+};
+
+const calculatePercent = (xp: number, level: number, type: string) => {
+  const points: number[] = levels[type];
+  
+  if (!points) {
+    throw new Error(`Invalid type: ${type}`);
+  }
+
+  return `${((xp - points[level - 1]) * 100) / (points[level] - points[level - 1])}%`;
 };
 
 function App() {

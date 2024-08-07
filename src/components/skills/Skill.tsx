@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import {
+  LEVEL_TYPE,
   StateType,
   SkillType,
   ActionType,
@@ -18,8 +19,8 @@ import { CloseIcon } from '../icons/CloseIcon';
 interface Props {
   user: StateType;
   setUser: (user: StateType) => void;
-  calculatePercent: (xp: number, level: number) => string;
-  calculateLevel: (xp: number) => number;
+  calculatePercent: (xp: number, level: number, type: string) => string;
+  calculateLevel: (xp: number, type: string) => number;
 }
 
 function Skill({ user, setUser, calculateLevel, calculatePercent }: Props) {
@@ -87,7 +88,7 @@ function Skill({ user, setUser, calculateLevel, calculatePercent }: Props) {
     newSkill = {
       ...newSkill,
       xp: newXP,
-      level: calculateLevel(newXP),
+      level: calculateLevel(newXP, LEVEL_TYPE.SKILL),
     };
     newSkills[newSkills.indexOf(skill)] = newSkill;
 
@@ -96,7 +97,7 @@ function Skill({ user, setUser, calculateLevel, calculatePercent }: Props) {
     setUser({
       ...user,
       xp: user.xp + action.xp >= 0 ? user.xp + action.xp : 0,
-      level: calculateLevel(user.xp),
+      level: calculateLevel(user.xp, LEVEL_TYPE.USER),
       skills: newSkills,
       history: [...user.history.concat(newItemText)],
     });
@@ -174,7 +175,7 @@ function Skill({ user, setUser, calculateLevel, calculatePercent }: Props) {
         <div className="skill__progress">
           <div
             className="skill__progressbar"
-            style={{ width: calculatePercent(skill.xp, skill.level) }}
+            style={{ width: calculatePercent(skill.xp, skill.level, LEVEL_TYPE.SKILL) }}
           ></div>
         </div>
       </div>

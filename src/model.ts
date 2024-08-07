@@ -3,6 +3,15 @@ export enum EDIT_TYPE {
   ACTION = 'action',
 }
 
+export enum LEVEL_TYPE {
+  SKILL = 'skill',
+  USER = 'user',
+}
+
+export interface LevelObjectKeys {
+  [key: string]: number[];
+}
+
 export interface ActionType {
   text: string;
   xp: number;

@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { StateType } from '../../model';
+import {
+  LEVEL_TYPE,
+  StateType
+} from '../../model';
 
 import Page from '../Page';
 
@@ -8,7 +11,7 @@ import './profile.css';
 
 interface Props {
   user: StateType;
-  calculatePercent: (xp: number, level: number) => string;
+  calculatePercent: (xp: number, level: number, type: string) => string;
 }
 
 function Profile({ user, calculatePercent }: Props) {
@@ -22,7 +25,7 @@ function Profile({ user, calculatePercent }: Props) {
         <div className="skill__progress">
           <div
             className="skill__progressbar"
-            style={{ width: calculatePercent(skill.xp, skill.level) }}
+            style={{ width: calculatePercent(skill.xp, skill.level, LEVEL_TYPE.USER) }}
           ></div>
         </div>
       </div>

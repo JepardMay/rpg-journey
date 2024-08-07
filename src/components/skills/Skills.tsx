@@ -1,7 +1,12 @@
 import React, { useState, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { StateType, SkillType, ModalType } from '../../model';
+import {
+  LEVEL_TYPE,
+  StateType,
+  SkillType,
+  ModalType
+} from '../../model';
 
 import Page from '../Page';
 import Modal from '../modal/Modal';
@@ -11,7 +16,7 @@ import { GoBackIcon } from '../icons/GoBackIcon';
 interface Props {
   user: StateType;
   setUser: (user: StateType) => void;
-  calculatePercent: (xp: number, level: number) => string;
+  calculatePercent: (xp: number, level: number, type: string) => string;
 }
 
 function Skills({ user, setUser, calculatePercent }: Props) {
@@ -64,7 +69,7 @@ function Skills({ user, setUser, calculatePercent }: Props) {
         <div className="skill__progress">
           <div
             className="skill__progressbar"
-            style={{ width: calculatePercent(skill.xp, skill.level) }}
+            style={{ width: calculatePercent(skill.xp, skill.level, LEVEL_TYPE.SKILL) }}
           ></div>
         </div>
         <button
@@ -92,7 +97,7 @@ function Skills({ user, setUser, calculatePercent }: Props) {
           <div className="level__progress">
             <div
               className="level__progressbar"
-              style={{ width: calculatePercent(user.xp, user.level) }}
+              style={{ width: calculatePercent(user.xp, user.level, LEVEL_TYPE.SKILL) }}
             ></div>
           </div>
         </div>
