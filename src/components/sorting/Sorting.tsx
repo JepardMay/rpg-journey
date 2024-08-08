@@ -122,10 +122,12 @@ function Sorting({ user, setUser }: Props) {
       className={`sorting ${listState ? 'sorting--open' : ''}`}
       onClick={onSortingHandler}
     >
-      <button className="btn" type="button" onClick={() => open()}>
-        {window.location.pathname === '/skill'
-          ? user.actionsSorting
-          : user.skillsSorting}
+      <button className="btn" type="button" onClick={ () => open() }>
+        <span>
+          {window.location.pathname === '/skill'
+            ? user.actionsSorting
+            : user.skillsSorting }
+        </span>
       </button>
       <div className="sorting__overlay"></div>
       <ul className="sorting__list">

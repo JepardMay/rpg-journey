@@ -1,0 +1,17 @@
+.footer {
+  padding: 40px 10px;
+  background-color: var(--grey);
+}
+
+.footer .container {
+  --max-width: 1158px;
+}
+
+.footer__wrapper {
+  width: 100%;
+}
+
+.footer__logo svg {
+  width: 100px;
+  height: auto;
+}

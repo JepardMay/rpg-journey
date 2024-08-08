@@ -184,7 +184,7 @@ function Modal({ user, setUser, modalState, setModalState, inputRef }: Props) {
           } else {
             setError({
               ...error,
-              text: 'A action with this name already exists',
+              text: 'An action with this name already exists',
             });
           }
         } else {
@@ -283,7 +283,7 @@ function Modal({ user, setUser, modalState, setModalState, inputRef }: Props) {
           } else {
             setError({
               ...error,
-              text: 'A action with this name already exists',
+              text: 'An action with this name already exists',
             });
           }
         } else {
@@ -368,7 +368,7 @@ function Modal({ user, setUser, modalState, setModalState, inputRef }: Props) {
           <CloseIcon></CloseIcon>
         </button>
         <h3 className="modal__title title">{modalState.title}</h3>
-        <div className="modal__input">
+        <div className="modal__input input-wrapper">
           <input
             ref={inputRef}
             className={error.text ? 'is-invalid' : ''}
@@ -389,10 +389,10 @@ function Modal({ user, setUser, modalState, setModalState, inputRef }: Props) {
               });
             }}
           />
-          {error.text && <span className="modal__error">{error.text}</span>}
+          {error.text && <span className="modal__error error">{error.text}</span>}
         </div>
         {modalState.type === 'action' ? (
-          <div className="modal__input">
+          <div className="modal__input input-wrapper">
             <input
               className={error.xp ? 'is-invalid' : ''}
               type="number"
@@ -412,7 +412,7 @@ function Modal({ user, setUser, modalState, setModalState, inputRef }: Props) {
                 });
               }}
             />
-            {error.xp && <span className="modal__error">{error.xp}</span>}
+            {error.xp && <span className="modal__error error">{error.xp}</span>}
           </div>
         ) : null}
         <div className="modal__footer">
@@ -421,7 +421,7 @@ function Modal({ user, setUser, modalState, setModalState, inputRef }: Props) {
             type="button"
             onClick={modalState.editing ? edit : add}
           >
-            {modalState.btnText}
+            <span>{modalState.btnText}</span>
           </button>
           {modalState.editing && (
             <button

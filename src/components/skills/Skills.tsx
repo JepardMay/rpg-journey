@@ -86,7 +86,7 @@ function Skills({ user, setUser, calculatePercent }: Props) {
   return (
     <Page title="Skills" user={user} setUser={setUser}>
       <div className="container">
-        <NavLink to="/" className="link link--go-back">
+        <NavLink to="/profile" className="link link--go-back">
           <GoBackIcon></GoBackIcon>
         </NavLink>
         <div className="level">

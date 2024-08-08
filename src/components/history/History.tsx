@@ -53,7 +53,7 @@ function History({ user, setUser }: Props) {
     <Page title="History">
       <div className="container">
         <div className="history">
-          <NavLink to="/" className="link link--go-back">
+          <NavLink to="/profile" className="link link--go-back">
             <GoBackIcon></GoBackIcon>
           </NavLink>
           <div className="history__header">

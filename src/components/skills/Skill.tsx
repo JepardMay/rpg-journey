@@ -239,7 +239,7 @@ function Skill({ user, setUser, calculateLevel, calculatePercent }: Props) {
             </button>
             <span className="notification__text">{lastAdded.xp}xp</span>
             <button type="button" className="btn" onClick={() => onUndoClick()}>
-              Undo
+              <span>Undo</span>
             </button>
             <div className="notification__progress"></div>
           </div>

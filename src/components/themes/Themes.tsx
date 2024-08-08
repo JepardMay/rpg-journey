@@ -39,7 +39,7 @@ function Themes({ user, setUser }: Props) {
     <Page title="Themes">
       <div className="themes">
         <div className="container">
-          <NavLink to="/" className="link link--go-back">
+          <NavLink to="/profile" className="link link--go-back">
             <GoBackIcon></GoBackIcon>
           </NavLink>
           <h2 className="title">Themes</h2>

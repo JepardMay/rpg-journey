@@ -20,9 +20,10 @@ import './menu.css';
 interface Props {
   user?: StateType;
   setUser?: (user: StateType) => void;
+  isNoLogo?: boolean;
 }
 
-function Header({ user, setUser }: Props) {
+function Header({ user, setUser, isNoLogo }: Props) {
   const [menuState, setMenuState] = useState<boolean>(false);
 
   const onBurgerClick = () => setMenuState(!menuState);
@@ -64,9 +65,9 @@ function Header({ user, setUser }: Props) {
           >
             <Burger></Burger>
           </button>
-          <div className="header__logo">
+          {!isNoLogo && <div className="header__logo">
             <Logo></Logo>
-          </div>
+          </div>}
           {user && setUser && <Sorting user={user} setUser={setUser}></Sorting>}
         </div>
       </div>
@@ -75,7 +76,7 @@ function Header({ user, setUser }: Props) {
           <div className="menu__section">
             <ul className="menu__list">
               <li className="menu__item">
-                <NavLink className="menu__link link" to="/">
+                <NavLink className="menu__link link" to="/profile">
                   <span className="menu__icon">
                     <ProfileIcon></ProfileIcon>
                   </span>

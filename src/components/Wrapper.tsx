@@ -5,7 +5,7 @@ interface Props {
 }
 
 function Wrapper(props: Props) {
-  return <main className="wrapper">{props.children}</main>;
+  return <div className="wrapper">{props.children}</div>;
 }
 
 export default Wrapper;

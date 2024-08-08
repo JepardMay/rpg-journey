@@ -31,10 +31,12 @@
   background-color: var(--white);
   border-radius: 8px;
   box-shadow: 5px 5px 0 0 var(--light-color);
+  transform: translateY(20px);
 
   opacity: 0;
   pointer-events: none;
   transition:
+    transform var(--transition),
     opacity var(--transition),
     box-shadow var(--transition);
 }
@@ -65,4 +67,5 @@
 .sorting--open .sorting__list {
   opacity: 1;
   pointer-events: initial;
+  transform: translateY(0);
 }

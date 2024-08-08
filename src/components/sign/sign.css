@@ -1,0 +1,52 @@
+.sign {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px;
+  background-color: var(--light-color);
+}
+
+.sign__wrapper {
+  position: relative;
+
+  width: 380px;
+  padding: 20px;
+  background-color: var(--white);
+  box-shadow: 8px 0 0 0 var(--white),
+    -8px 0 0 0 var(--white),
+    0 8px 0 0 var(--white),
+    0 -8px 0 0 var(--white),
+    16px 0 0 0 var(--nero),
+    -16px 0 0 0 var(--nero),
+    0 16px 0 0 var(--nero),
+    0 -16px 0 0 var(--nero),
+    0 0 0 8px var(--nero);
+}
+
+.sign .input-wrapper {
+  margin-bottom: 30px;
+}
+
+.sign__title {
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+.sign__btn {
+  width: 100%;
+}
+
+.sign__footer {
+  margin-top: 30px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.sign__footer p {
+  margin: 0;
+}
+
+.sign__footer p + p {
+  margin-top: 10px;
+}

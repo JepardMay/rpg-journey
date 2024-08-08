@@ -10,7 +10,8 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background-color: color-mix(in srgb, var(--nero) 40%, transparent);
+  background-color: color-mix(in srgb, var(--white) 30%, transparent);
+  backdrop-filter: blur(2px);
 
   opacity: 0;
   pointer-events: none;
@@ -28,7 +29,15 @@
   width: 380px;
   padding: 20px;
   background-color: var(--white);
-  border-radius: 8px;
+  box-shadow: 8px 0 0 0 var(--white),
+    -8px 0 0 0 var(--white),
+    0 8px 0 0 var(--white),
+    0 -8px 0 0 var(--white),
+    16px 0 0 0 var(--nero),
+    -16px 0 0 0 var(--nero),
+    0 16px 0 0 var(--nero),
+    0 -16px 0 0 var(--nero),
+    0 0 0 8px var(--nero);
 }
 
 .modal__close {
@@ -54,35 +63,6 @@
   margin: 0;
   margin-bottom: 20px;
   text-align: center;
-}
-
-.modal__input {
-  margin-bottom: 20px;
-}
-
-.modal__input input {
-  width: 100%;
-  height: 50px;
-  padding: 10px;
-  border: 3px solid var(--main-color);
-  border-style: dashed solid;
-  border-radius: 4px;
-  outline: none;
-  transition: border-color var(--transition);
-}
-
-.modal__input input:hover,
-.modal__input input:focus {
-  border-color: var(--secondary-color);
-}
-
-.modal__input input.is-invalid {
-  border-color: var(--persian-red);
-}
-
-.modal__error {
-  font-size: 12px;
-  color: var(--persian-red);
 }
 
 .modal__footer {

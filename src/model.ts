@@ -20,6 +20,8 @@ export interface ActionType {
 export interface ErrorType {
   text?: string | null;
   xp?: string | null;
+  email?: string | null;
+  password?: string | null;
 }
 
 export interface HistoryType {

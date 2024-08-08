@@ -4,6 +4,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { LevelObjectKeys } from './model';
 import { StateType } from './model';
 
+import Main from './components/main/Main';
+import Sign from './components/sign/Sign';
 import Profile from './components/profile/Profile';
 import Skills from './components/skills/Skills';
 import Skill from './components/skills/Skill';
@@ -89,6 +91,22 @@ function App() {
 
   const [user, setUser] = useState<StateType>(initialValue);
 
+  const signUpFooter = {
+    text: 'Already have an account? ',
+    link: {
+      text: 'Sign In',
+      url: '/login'
+    }
+  };
+
+  const loginFooter = {
+    text: 'Need an account? ',
+    link: {
+      text: 'Sign up',
+      url: '/signup'
+    }
+  };
+
   useEffect(() => {
     localStorage.setItem('rpg-user-data', JSON.stringify(user));
     document.body.classList.add(user.theme);
@@ -96,7 +114,19 @@ function App() {
 
   const router = createBrowserRouter([
     {
+      path: '/signup',
+      element: <Sign title="Sign Up" heading="Create an account to start gamifying your life!" footer={signUpFooter} />,
+    },
+    {
+      path: '/login',
+      element: <Sign title="Login" heading="Sign in to continue gamifying your life!" footer={loginFooter} />,
+    },
+    {
       path: '/',
+      element: <Main/>,
+    },
+    {
+      path: '/profile',
       element: <Profile user={user} calculatePercent={calculatePercent} />,
     },
     {
