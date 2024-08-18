@@ -4,6 +4,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { LevelObjectKeys } from './model';
 import { StateType } from './model';
 
+import PrivateRoute from './components/private-route/PrivateRoute';
+
 import Main from './components/main/Main';
 import Sign from './components/sign/Sign';
 import Profile from './components/profile/Profile';
@@ -91,22 +93,6 @@ function App() {
 
   const [user, setUser] = useState<StateType>(initialValue);
 
-  const signUpFooter = {
-    text: 'Already have an account? ',
-    link: {
-      text: 'Sign In',
-      url: '/login'
-    }
-  };
-
-  const loginFooter = {
-    text: 'Need an account? ',
-    link: {
-      text: 'Sign up',
-      url: '/signup'
-    }
-  };
-
   useEffect(() => {
     localStorage.setItem('rpg-user-data', JSON.stringify(user));
     document.body.classList.add(user.theme);
@@ -115,44 +101,49 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/signup',
-      element: <Sign title="Sign Up" heading="Create an account to start gamifying your life!" footer={signUpFooter} />,
+      element: <Sign title="Sign Up" heading="Create an account to start gamifying your life!" />,
     },
     {
       path: '/login',
-      element: <Sign title="Login" heading="Sign in to continue gamifying your life!" footer={loginFooter} />,
+      element: <Sign title="Login" heading="Sign in to continue gamifying your life!" />,
     },
     {
       path: '/',
       element: <Main/>,
     },
     {
-      path: '/profile',
-      element: <Profile user={user} calculatePercent={calculatePercent} />,
-    },
-    {
-      path: '/skills',
-      element: (
-        <Skills
-          user={user}
-          setUser={setUser}
-          calculatePercent={calculatePercent}
-        />
-      ),
-    },
-    {
-      path: '/skill',
-      element: (
-        <Skill
-          user={user}
-          setUser={setUser}
-          calculateLevel={calculateLevel}
-          calculatePercent={calculatePercent}
-        />
-      ),
-    },
-    {
-      path: '/history',
-      element: <History user={user} setUser={setUser} />,
+      element: <PrivateRoute />,
+      children: [
+        {
+          path: '/profile',
+          element: <Profile user={user} calculatePercent={calculatePercent} />,
+        },
+        {
+          path: '/skills',
+          element: (
+            <Skills
+              user={user}
+              setUser={setUser}
+              calculatePercent={calculatePercent}
+            />
+          ),
+        },
+        {
+          path: '/skill',
+          element: (
+            <Skill
+              user={user}
+              setUser={setUser}
+              calculateLevel={calculateLevel}
+              calculatePercent={calculatePercent}
+            />
+          ),
+        },
+        {
+          path: '/history',
+          element: <History user={user} setUser={setUser} />,
+        },
+      ],
     },
     {
       path: '/themes',

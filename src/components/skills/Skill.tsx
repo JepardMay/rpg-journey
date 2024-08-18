@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import {
   LEVEL_TYPE,
@@ -24,6 +24,8 @@ interface Props {
 }
 
 function Skill({ user, setUser, calculateLevel, calculatePercent }: Props) {
+  const navigate = useNavigate();
+  
   let timer: ReturnType<typeof setTimeout>;
   const inputRef = useRef<HTMLInputElement>(null);
   const [lastAdded, setLastAdded] = useState<HistoryType | null>(null);
@@ -214,9 +216,9 @@ function Skill({ user, setUser, calculateLevel, calculatePercent }: Props) {
   return (
     <Page title="Skill" user={user} setUser={setUser}>
       <div className="container">
-        <NavLink to="/skills" className="link link--go-back">
+        <button onClick={ () => navigate(-1) } className="link link--go-back">
           <GoBackIcon></GoBackIcon>
-        </NavLink>
+        </button>
         <nav className="horizontal-nav">
           <ul className="horizontal-nav__list">{skillsList}</ul>
         </nav>

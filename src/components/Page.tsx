@@ -1,4 +1,5 @@
 import React, { ReactNode, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { StateType } from '../model';
 
@@ -18,6 +19,8 @@ interface Props {
 }
 
 function Page(props: Props) {
+  const location = useLocation();
+  
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {

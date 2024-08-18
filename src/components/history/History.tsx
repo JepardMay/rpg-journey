@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { StateType } from '../../model';
 
@@ -16,6 +16,8 @@ interface Props {
 }
 
 function History({ user, setUser }: Props) {
+  const navigate = useNavigate();
+  
   useEffect(() => {
     const uncheckedItems = user.history.map((item) => {
       if (item.checked) item.checked = false;
@@ -53,9 +55,9 @@ function History({ user, setUser }: Props) {
     <Page title="History">
       <div className="container">
         <div className="history">
-          <NavLink to="/profile" className="link link--go-back">
+          <button onClick={ () => navigate(-1) } className="link link--go-back">
             <GoBackIcon></GoBackIcon>
-          </NavLink>
+          </button>
           <div className="history__header">
             <h2 className="title">History</h2>
             {user.history.length > 0 &&

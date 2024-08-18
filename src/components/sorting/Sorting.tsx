@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { StateType } from '../../model';
 
@@ -10,6 +11,8 @@ interface Props {
 }
 
 function Sorting({ user, setUser }: Props) {
+  const location = useLocation();
+  
   const [listState, setListState] = useState<boolean>(false);
 
   const open = () => setListState(!listState);
@@ -38,7 +41,7 @@ function Sorting({ user, setUser }: Props) {
   }, [escFunction]);
 
   const sort = (currentSort: string) => {
-    if (window.location.pathname === '/skills') {
+    if (location.pathname === '/skills') {
       if (currentSort === 'z-a') {
         setUser({
           ...user,
@@ -66,7 +69,7 @@ function Sorting({ user, setUser }: Props) {
       }
     }
 
-    if (window.location.pathname === '/skill') {
+    if (location.pathname === '/skill') {
       if (currentSort === 'z-a') {
         const newSkills = [...user.skills];
         newSkills.forEach((skill) => {
@@ -124,7 +127,7 @@ function Sorting({ user, setUser }: Props) {
     >
       <button className="btn" type="button" onClick={ () => open() }>
         <span>
-          {window.location.pathname === '/skill'
+          {location.pathname === '/skill'
             ? user.actionsSorting
             : user.skillsSorting }
         </span>

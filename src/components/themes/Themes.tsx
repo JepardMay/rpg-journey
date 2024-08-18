@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { StateType } from '../../model';
 
@@ -12,6 +12,8 @@ interface Props {
 }
 
 function Themes({ user, setUser }: Props) {
+  const navigate = useNavigate();
+  
   const themesItems = [];
 
   const onThemeClick = (num: number) => {
@@ -39,9 +41,9 @@ function Themes({ user, setUser }: Props) {
     <Page title="Themes">
       <div className="themes">
         <div className="container">
-          <NavLink to="/profile" className="link link--go-back">
+          <button onClick={ () => navigate(-1) } className="link link--go-back">
             <GoBackIcon></GoBackIcon>
-          </NavLink>
+          </button>
           <h2 className="title">Themes</h2>
           <ul className="list list--grid">{themesItems}</ul>
         </div>

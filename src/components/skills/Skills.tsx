@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import {
   LEVEL_TYPE,
@@ -20,6 +20,8 @@ interface Props {
 }
 
 function Skills({ user, setUser, calculatePercent }: Props) {
+  const navigate = useNavigate();
+  
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [modalState, setModalState] = useState<ModalType>({
@@ -86,9 +88,9 @@ function Skills({ user, setUser, calculatePercent }: Props) {
   return (
     <Page title="Skills" user={user} setUser={setUser}>
       <div className="container">
-        <NavLink to="/profile" className="link link--go-back">
+        <button onClick={ () => navigate(-1) } className="link link--go-back">
           <GoBackIcon></GoBackIcon>
-        </NavLink>
+        </button>
         <div className="level">
           <p className="level__text">
             Level:&nbsp;

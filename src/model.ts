@@ -17,6 +17,11 @@ export interface ActionType {
   xp: number;
 }
 
+export interface SignType {
+  email: string;
+  password: string;
+}
+
 export interface ErrorType {
   text?: string | null;
   xp?: string | null;
