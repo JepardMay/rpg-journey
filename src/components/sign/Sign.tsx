@@ -110,7 +110,7 @@ function Sign({ user, setUser, title, heading }: Props) {
   }
 
   return (
-    <Page title={ title } isNoHeader={ true }>
+    <Page title={ title } isNoHeader={ true } isNoFooter={ true }>
       <div className="sign">
         <div className="sign__wrapper">
           <h2 className="sign__title">{ heading }</h2>

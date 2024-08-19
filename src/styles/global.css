@@ -134,6 +134,13 @@ body {
   background-color: var(--white);
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+  -webkit-background-clip: text;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -163,6 +170,9 @@ main {
   flex-direction: column;
   width: 100%;
   background-color: var(--white);
+}
+
+main:not(:only-child) {
   margin-bottom: 102px;
 }
 

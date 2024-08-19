@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { NavLink } from 'react-router-dom';
+
+import { AuthContext } from '../../context/AuthContext';
 
 import Page from '../Page';
 
@@ -8,6 +10,14 @@ import { Logo } from '../icons/Logo';
 import './main.css';
 
 function Main() {
+  const authContext = useContext(AuthContext);
+
+  if (!authContext) {
+    throw new Error('Sign component must be used within an AuthProvider');
+  }
+
+  const { isLoggedIn } = authContext;
+
   return (
     <Page title="WELCOME TO JOURNEY" isNoLogo={true}>
       <div className="main">
@@ -19,7 +29,12 @@ function Main() {
             </span>
             <span> -&nbsp;Your Tool to&nbsp;Gamifying Your Life</span>
           </h1>
-          <NavLink to="/signup" className="main__btn btn">Start Now</NavLink>
+          { isLoggedIn ||
+            <NavLink to="/signup" className="main__btn btn">Start Now</NavLink>
+          }
+          { isLoggedIn &&
+            <NavLink to="/profile" className="main__btn btn">Go To Dashboard</NavLink>
+          }
         </div>
         <div className="container">
         </div>

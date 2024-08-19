@@ -51,7 +51,7 @@
     0 2px var(--nero), 
     0 -2px var(--nero);
   background-color: var(--contrast-color);
-  border: none;
+  border: 4px dashed transparent;
   box-shadow: 4px 0 0 0 var(--nero),
     -4px 0 0 0 var(--nero),
     0 4px 0 0 var(--nero),
@@ -59,6 +59,7 @@
   cursor: pointer;
   transition:
     color var(--transition),
+    border-color var(--transition),
     background-color var(--transition);
   overflow: hidden;
 }
@@ -92,6 +93,11 @@
   transform: translateX(-30%);
   transform-origin: right;
 } */
+
+.btn:hover,
+.btn:focus {
+  border-color: var(--secondary-color);
+}
 
 .btn span,
 .btn svg {
