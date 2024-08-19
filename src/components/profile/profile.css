@@ -32,6 +32,10 @@
   align-items: center;
 }
 
+.profile__name::first-letter {
+  text-transform: uppercase;
+}
+
 .profile__number {
   margin-left: auto;
   color: var(--secondary-color);

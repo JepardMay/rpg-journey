@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { NavLink, Navigate, useLocation, useNavigate } from 'react-router-dom';
+
+import { AuthContext } from '../../context/AuthContext';
 
 import apiService from '../../api.service';
 
 import {
+  StateType,
   SignType,
   ErrorType
 } from '../../model';
@@ -13,13 +16,25 @@ import Page from '../Page';
 import './sign.css';
 
 interface Props {
+  user: StateType;
+  setUser: (user: StateType) => void;
   title: string;
   heading: string;
 }
 
-function Sign({ title, heading }: Props) {
+function Sign({ user, setUser, title, heading }: Props) {
   const location = useLocation();
   const isLogin = location.pathname === '/login';
+
+  const navigate = useNavigate();
+
+  const authContext = useContext(AuthContext);
+
+  if (!authContext) {
+    throw new Error('Sign component must be used within an AuthProvider');
+  }
+
+  const { isLoggedIn, login } = authContext;
 
   const [signState, setSignState] = useState<SignType>({
     email: '',
@@ -49,34 +64,50 @@ function Sign({ title, heading }: Props) {
 
     try {
       if (isLogin) {
-      const response = await apiService.login(signState);
-      if (response.success) {
-        // Handle successful login, save the user's authentication token
+        const response = await apiService.login(signState);
+        if (!response.error) {
+          login(response.accessToken, response.refreshToken);
+          // Temporary username assignment
+          const username = signState.email.split('@')[0];
+          setUser({ ...user, name: username });
+          //
+          navigate('/profile', { replace: true });
+        } else {
+          console.log(response);
+          setError({
+            email: response.error || 'Failed to login. Please try again.',
+            password: response.passwordError || 'Failed to login. Please try again.',
+          });
+        }
       } else {
-        setError({
-          email: response.emailError || null,
-          password: response.passwordError || null,
-        });
+        const response = await apiService.signup(signState);
+        if (!response.error) {
+          login(response.accessToken, response.refreshToken);
+          // Temporary username assignment
+          const username = signState.email.split('@')[0];
+          setUser({ ...user, name: username });
+          //
+          navigate('/profile', { replace: true });
+        } else {
+          console.log(response);
+          setError({
+            email: response.error || 'Failed to sign-up. Please try again.',
+            password: null,
+          });
+        }
       }
-    } else {
-      const response = await apiService.signup(signState);
-      if (response.success) {
-        // Handle successful sign-up, save the user's authentication token
-      } else {
-        setError({
-          email: response.emailError || null,
-          password: response.passwordError || null,
-        });
-      }
-    }
     } catch (err) {
-      console.log(err);
+      console.log('Error during API call:', err);
       setError({
-        email: 'Failed to sign up/login. Please try again.',
-        password: 'Failed to sign up/login. Please try again.',
+        email: `Failed to ${isLogin ? 'login' : 'sign up'}. Please try again.`,
+        password: `Failed to ${ isLogin ? 'login' : 'sign up'}. Please try again.`,
       });
     }
   };
+  
+  if (isLoggedIn) {
+    return <Navigate to="/profile" replace />;
+  }
 
   return (
     <Page title={ title } isNoHeader={ true }>

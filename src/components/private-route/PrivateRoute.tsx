@@ -1,9 +1,16 @@
-import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import apiService from '../../api.service';
+
+import React, { useContext } from 'react'; import { Navigate, Outlet } from 'react-router-dom';
+
+import { AuthContext } from '../../context/AuthContext';
 
 const PrivateRoute = () => {
-  const isLoggedIn = !!apiService.getToken();
+  const authContext = useContext(AuthContext);
+
+  if (!authContext) {
+    throw new Error('PrivateRoute must be used within an AuthProvider');
+  }
+
+  const { isLoggedIn } = authContext;
 
   return isLoggedIn ? <Outlet /> : <Navigate to="/login" replace />;
 };

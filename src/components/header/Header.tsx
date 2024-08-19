@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+
+import { AuthContext } from '../../context/AuthContext';
 
 import { StateType } from '../../model';
 
@@ -24,6 +26,16 @@ interface Props {
 }
 
 function Header({ user, setUser, isNoLogo }: Props) {
+  const navigate = useNavigate();
+
+  const authContext = useContext(AuthContext);
+
+  if (!authContext) {
+    throw new Error('Sign component must be used within an AuthProvider');
+  }
+
+  const { isLoggedIn, logout } = authContext;
+
   const [menuState, setMenuState] = useState<boolean>(false);
 
   const onBurgerClick = () => setMenuState(!menuState);
@@ -42,6 +54,11 @@ function Header({ user, setUser, isNoLogo }: Props) {
       setMenuState(false);
     }
   }, []);
+
+  const handleLogout = () => {
+    logout();
+    navigate('/', { replace: true });
+  };
 
   useEffect(() => {
     document.addEventListener('keydown', escFunction, false);
@@ -121,6 +138,13 @@ function Header({ user, setUser, isNoLogo }: Props) {
               </li>
             </ul>
           </div>
+          { isLoggedIn &&
+            <div className="menu__section">
+              <button className="btn" onClick={handleLogout}>
+                Log Out
+              </button>
+            </div>
+          }
         </nav>
       </div>
     </header>

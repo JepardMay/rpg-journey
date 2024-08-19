@@ -44,7 +44,7 @@ function Profile({ user, calculatePercent }: Props) {
               />
             </div>
             <div className="profile__block">
-              <h2 className="profile__text">{user.name}</h2>
+              <h2 className="profile__name">{user.name}</h2>
               <p className="profile__text profile__text--sm">
                 Level:&nbsp;
                 <span className="profile__badge">{user.level}</span>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import { AuthProvider } from './context/AuthContext';
+
 import { LevelObjectKeys } from './model';
 import { StateType } from './model';
 
@@ -101,11 +103,21 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/signup',
-      element: <Sign title="Sign Up" heading="Create an account to start gamifying your life!" />,
+      element: <Sign
+        user={user}
+        setUser={setUser}
+        title="Sign Up"
+        heading="Create an account to start gamifying your life!"
+      />,
     },
     {
       path: '/login',
-      element: <Sign title="Login" heading="Sign in to continue gamifying your life!" />,
+      element: <Sign
+        user={user}
+        setUser={setUser}
+        title="Login"
+        heading="Sign in to continue gamifying your life!"
+      />,
     },
     {
       path: '/',
@@ -116,7 +128,10 @@ function App() {
       children: [
         {
           path: '/profile',
-          element: <Profile user={user} calculatePercent={calculatePercent} />,
+          element: <Profile
+            user={ user }
+            calculatePercent={ calculatePercent }
+          />,
         },
         {
           path: '/skills',
@@ -151,7 +166,11 @@ function App() {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={ router } />
+    </AuthProvider>
+  );
 }
 
 export default App;

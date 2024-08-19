@@ -3,18 +3,33 @@ import { API_BASE_URL, ENDPOINTS } from './api.config';
 import { SignType } from './model';
 
 class APIService {
-  private token: string | null = null;
+  private accessToken: string | null = null;
+  private refreshToken: string | null = null;
 
-  setToken(token: string) {
-    this.token = token;
-    localStorage.setItem('authToken', token); // Store the token in localStorage
+  setTokens(accessToken: string, refreshToken: string) {
+    this.accessToken = accessToken;
+    this.refreshToken = refreshToken;
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('refreshToken', refreshToken);
   }
 
-  getToken(): string | null {
-    if (!this.token) {
-      this.token = localStorage.getItem('authToken'); // Retrieve the token from localStorage
+  getAccessToken(): string | null {
+    if (!this.accessToken) {
+      this.accessToken = localStorage.getItem('accessToken');
     }
-    return this.token;
+    return this.accessToken;
+  }
+
+  getRefreshToken(): string | null {
+    if (!this.refreshToken) {
+      this.refreshToken = localStorage.getItem('refreshToken');
+    }
+    return this.refreshToken;
+  }
+
+  clearTokens() {
+    this.accessToken = null;
+    this.refreshToken = null;
   }
 
   async login(credentials: SignType) {
@@ -39,6 +54,21 @@ class APIService {
     });
     // Handle the response
     return await response.json();
+  }
+  
+  async signOut() {
+    try {
+      await fetch(`${API_BASE_URL}${ENDPOINTS.signout}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.accessToken}`,
+        },
+      });
+    } catch (error) {
+      console.error('Error during sign-out:', error);
+      throw error;
+    }
   }
 }
 
