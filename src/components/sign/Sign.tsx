@@ -46,6 +46,8 @@ function Sign({ user, setUser, title, heading }: Props) {
     password: null,
   });
 
+  const [submitting, setSubmitting] = useState<boolean>(false);
+
   const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evt.target;
     
@@ -61,6 +63,7 @@ function Sign({ user, setUser, title, heading }: Props) {
 
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
+    setSubmitting(true);
 
     try {
       if (isLogin) {
@@ -103,6 +106,8 @@ function Sign({ user, setUser, title, heading }: Props) {
         password: `Failed to ${ isLogin ? 'login' : 'sign up'}. Please try again.`,
       });
     }
+
+    setSubmitting(false);
   };
   
   if (isLoggedIn) {
@@ -125,7 +130,8 @@ function Sign({ user, setUser, title, heading }: Props) {
               id="email"
               name="email"
               defaultValue={ signState.email }
-              onChange={handleInputChange}
+              onChange={ handleInputChange }
+              disabled={submitting}
             />
             {error.email && <span className="sign__error error">{error.email}</span>}
           </div>
@@ -139,7 +145,8 @@ function Sign({ user, setUser, title, heading }: Props) {
               id="password"
               name="password"
               defaultValue={signState.password}
-              onChange={handleInputChange}
+              onChange={ handleInputChange }
+              disabled={submitting}
             />
             {error.password && <span className="sign__error error">{error.password}</span>}
             </div>
