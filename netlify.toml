@@ -4,10 +4,8 @@
   status = 200
   force = true
 
-[build]
-  environment = {
-    REACT_APP_API_URL = "https://147.45.163.173:9999/api"
-  }
+[build.environment]
+  REACT_APP_API_URL = "https://147.45.163.173:9999/api"
 
 [[headers]]
   for = "/*"

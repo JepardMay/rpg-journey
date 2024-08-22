@@ -160,7 +160,14 @@ function Sign({ user, setUser, title, heading }: Props) {
               <p>{ isLogin && <a href="#" className="link">Forgot password?</a>}</p>
               <p>
                 { isLogin ? 'Need an account? ' : 'Already have an account? ' }
-                <NavLink to={ isLogin ? '/signup' : '/login' } className="link">
+                <NavLink
+                  to={ isLogin ? '/signup' : '/login' }
+                  className="link"
+                  onClick={ () => setError({
+                    email: null,
+                    password: null,
+                  }) }
+                >
                   {isLogin ? 'Sign up' : 'Sign In'}!
                 </NavLink>
               </p>
