@@ -10,4 +10,4 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; connect-src 'self' /api*; font-src 'self' /fonts/*;"
+    Content-Security-Policy = "default-src 'self'; connect-src 'self' https://147.45.163.173:9999/*;  http://147.45.163.173:9999/*; font-src 'self' /fonts/*;"
