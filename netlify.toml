@@ -5,4 +5,4 @@
   force = true
 
 [build.environment]
-  NODE_ENV = "production"
+  REACT_APP_API_URL = "/api"
