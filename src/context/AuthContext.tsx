@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = () => {
-    apiService.signOut(); 
+    // apiService.signOut(); 
     apiService.clearTokens();
     setIsLoggedIn(false);
   };

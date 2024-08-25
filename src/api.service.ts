@@ -30,6 +30,8 @@ class APIService {
   clearTokens() {
     this.accessToken = null;
     this.refreshToken = null;
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
   }
 
   async login(credentials: SignType) {
