@@ -68,7 +68,7 @@ function Sign({ user, setUser, title, heading }: Props) {
     try {
       if (isLogin) {
         const response = await apiService.login(signState);
-        if (!response.error) {
+        if (!response.errors) {
           login(response.accessToken, response.refreshToken);
           // Temporary username assignment
           const username = signState.email.split('@')[0];
@@ -78,13 +78,13 @@ function Sign({ user, setUser, title, heading }: Props) {
         } else {
           console.log(response);
           setError({
-            email: response.error || 'Failed to login. Please try again.',
-            password: response.passwordError || 'Failed to login. Please try again.',
+            email: response.errors.email || 'Failed to login. Please try again.',
+            password: response.errors.password || null,
           });
         }
       } else {
         const response = await apiService.signup(signState);
-        if (!response.error) {
+        if (!response.errors) {
           login(response.accessToken, response.refreshToken);
           // Temporary username assignment
           const username = signState.email.split('@')[0];
@@ -94,7 +94,7 @@ function Sign({ user, setUser, title, heading }: Props) {
         } else {
           console.log(response);
           setError({
-            email: response.error || 'Failed to sign-up. Please try again.',
+            email: response.errors.email || 'Failed to sign-up. Please try again.',
             password: null,
           });
         }
