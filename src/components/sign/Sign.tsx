@@ -76,7 +76,6 @@ function Sign({ user, setUser, title, heading }: Props) {
           //
           navigate('/profile', { replace: true });
         } else {
-          console.log(response);
           setError({
             email: response.errors.email || 'Failed to login. Please try again.',
             password: response.errors.password || null,
@@ -92,7 +91,6 @@ function Sign({ user, setUser, title, heading }: Props) {
           //
           navigate('/profile', { replace: true });
         } else {
-          console.log(response);
           setError({
             email: response.errors.email || 'Failed to sign-up. Please try again.',
             password: null,
