@@ -30,6 +30,7 @@ export interface ErrorType {
 }
 
 export interface HistoryType {
+  skill: string;
   text: string;
   xp: number;
   date: Date;

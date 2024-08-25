@@ -9,6 +9,7 @@ import './styles/global.css';
 import './styles/themes.css';
 import './styles/animations.css';
 import './styles/common.css';
+import './styles/colors.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

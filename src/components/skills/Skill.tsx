@@ -60,12 +60,14 @@ function Skill({ user, setUser, calculateLevel, calculatePercent }: Props) {
   }, [lastAdded]);
 
   class HistoryItem implements HistoryType {
+    skill: string;
     text: string;
     xp: number;
     date: Date;
     checked: boolean;
 
-    constructor(action: ActionType) {
+    constructor(action: ActionType, skillName: string) {
+      this.skill = skillName;
       this.text = action.text;
       this.xp = action.xp;
       this.date = new Date();
@@ -94,7 +96,7 @@ function Skill({ user, setUser, calculateLevel, calculatePercent }: Props) {
     };
     newSkills[newSkills.indexOf(skill)] = newSkill;
 
-    const newItemText = new HistoryItem(action);
+    const newItemText = new HistoryItem(action, skill.name);
 
     setUser({
       ...user,

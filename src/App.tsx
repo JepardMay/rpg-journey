@@ -156,7 +156,13 @@ function App() {
         },
         {
           path: '/history',
-          element: <History user={user} setUser={setUser} />,
+          element: (
+            <History
+              user={ user }
+              setUser={ setUser }
+              calculateLevel={ calculateLevel }
+            />
+          ),
         },
       ],
     },

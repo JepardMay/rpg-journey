@@ -3,11 +3,12 @@
   padding: 45px 0;
 }
 
-.history__header {
+.history__wrapper {
   display: flex;
   justify-content: space-between;
-  min-height: 50px;
-  margin-bottom: 20px;
+  align-items: center;
+  min-height: 60px;
+  margin: 20px 0;
 }
 
 .history__header .title {
@@ -17,6 +18,7 @@
 .history-item {
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .history-item__checkbox {
@@ -30,6 +32,7 @@
   display: flex;
   width: 25px;
   height: 25px;
+  cursor: pointer;
 }
 
 .history-item__checkbox label::before {
@@ -62,6 +65,12 @@
   flex-grow: 1;
   display: flex;
   flex-wrap: wrap;
+}
+
+.history-item__skill {
+  width: 100%;
+  font-size: 12px;
+  text-transform: uppercase;
 }
 
 .history-item__text {

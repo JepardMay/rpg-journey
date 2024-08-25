@@ -1,0 +1,15 @@
+.main-color { 
+  color: var(--medium-purple);
+}
+
+.secondary-color { 
+  color: var(--slate-blue);
+}
+
+.contrast-color { 
+  color: var(--blizzard-blue);
+}
+
+.light-color { 
+  color: var(--cosmic-latte);
+}
