@@ -52,10 +52,15 @@
     0 -2px var(--nero);
   background-color: var(--contrast-color);
   border: 4px dashed transparent;
-  box-shadow: 4px 0 0 0 var(--nero),
-    -4px 0 0 0 var(--nero),
-    0 4px 0 0 var(--nero),
-    0 -4px 0 0 var(--nero);
+  box-shadow: 4px 0 0 0 var(--contrast-color),
+    -4px 0 0 0 var(--contrast-color),
+    0 4px 0 0 var(--contrast-color),
+    0 -4px 0 0 var(--contrast-color),
+    8px 0 0 0 var(--nero),
+    -8px 0 0 0 var(--nero),
+    0 8px 0 0 var(--nero),
+    0 -8px 0 0 var(--nero),
+    0 0 0 4px var(--nero);
   cursor: pointer;
   transition:
     color var(--transition),
@@ -69,35 +74,26 @@
   font-size: 12px;
 }
 
-/* .btn:not(.btn--icon):before,
-.btn:not(.btn--icon)::after {
+.btn:not(.btn--icon):before {
   content: "";
   position: absolute;
   top: 0;
-  left: 0;
+  left: 4px;
+  right: 4px;
   z-index: 0;
-  width: 200%;
-  height: 100%;
-  background-color: var(--secondary-color);
-  transform: translateX(-200%);
-  transform-origin: left;
-  clip-path: polygon(50px 0%, 100% 0%, calc(100% - 50px) 100%, 0% 100%);
-  transition:
-    transform var(--transition);
+  width: auto;
+  height: 8px;
+  box-shadow: 4px 0 0 0 var(--contrast-color),
+    -4px 0 0 0 var(--contrast-color),
+    0 4px 0 0 var(--contrast-color),
+    0 -4px 0 0 var(--contrast-color),
+    8px 0 0 0 var(--white),
+    -8px 0 0 0 var(--white),
+    0 8px 0 0 var(--white),
+    0 -8px 0 0 var(--white),
+    0 0 0 4px var(--white);
   pointer-events: none;
-} */
-
-/* .btn:not(.btn--icon)::after {
-  top: unset;
-  bottom: 0;
-  transition-delay: 0.08s;
-} */
-
-/* .btn:hover::before,
-.btn:hover::after {
-  transform: translateX(-30%);
-  transform-origin: right;
-} */
+}
 
 .btn:hover,
 .btn:focus {
