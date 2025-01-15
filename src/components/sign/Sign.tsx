@@ -1,7 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { NavLink, Navigate, useLocation, useNavigate } from 'react-router-dom';
 
-import { AuthContext } from '../../context/AuthContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../../store';
+import { login } from '../../reducers/authSlice';
 
 import apiService from '../../api.service';
 
@@ -28,13 +30,8 @@ function Sign({ user, setUser, title, heading }: Props) {
 
   const navigate = useNavigate();
 
-  const authContext = useContext(AuthContext);
-
-  if (!authContext) {
-    throw new Error('Sign component must be used within an AuthProvider');
-  }
-
-  const { isLoggedIn, login } = authContext;
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const dispatch: AppDispatch = useDispatch();
 
   const [signState, setSignState] = useState<SignType>({
     email: '',
@@ -69,7 +66,7 @@ function Sign({ user, setUser, title, heading }: Props) {
       if (isLogin) {
         const response = await apiService.login(signState);
         if (!response.errors && !response.error) {
-          login(response.accessToken, response.refreshToken);
+          dispatch(login({ accessToken: response.accessToken, refreshToken: response.refreshToken }));
           // Temporary username assignment
           const username = signState.email.split('@')[0];
           setUser({ ...user, name: username });
@@ -84,7 +81,7 @@ function Sign({ user, setUser, title, heading }: Props) {
       } else {
         const response = await apiService.signup(signState);
         if (!response.errors && !response.error) {
-          login(response.accessToken, response.refreshToken);
+          dispatch(login({ accessToken: response.accessToken, refreshToken: response.refreshToken }));
           // Temporary username assignment
           const username = signState.email.split('@')[0];
           setUser({ ...user, name: username });

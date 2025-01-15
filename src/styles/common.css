@@ -46,10 +46,10 @@
   text-decoration: none;
   color: var(--white);
   text-shadow: 
-    2px 0 var(--nero), 
-    -2px 0 var(--nero), 
-    0 2px var(--nero), 
-    0 -2px var(--nero);
+    1px 0 var(--nero), 
+    -1px 0 var(--nero), 
+    0 1px var(--nero), 
+    0 -1px var(--nero);
   background-color: var(--contrast-color);
   border: 4px dashed transparent;
   box-shadow: 4px 0 0 0 var(--contrast-color),
@@ -72,27 +72,6 @@
 .btn--sm {
   padding: 5px 8px;
   font-size: 12px;
-}
-
-.btn:not(.btn--icon):before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 4px;
-  right: 4px;
-  z-index: 0;
-  width: auto;
-  height: 8px;
-  box-shadow: 4px 0 0 0 var(--contrast-color),
-    -4px 0 0 0 var(--contrast-color),
-    0 4px 0 0 var(--contrast-color),
-    0 -4px 0 0 var(--contrast-color),
-    8px 0 0 0 var(--white),
-    -8px 0 0 0 var(--white),
-    0 8px 0 0 var(--white),
-    0 -8px 0 0 var(--white),
-    0 0 0 4px var(--white);
-  pointer-events: none;
 }
 
 .btn:hover,

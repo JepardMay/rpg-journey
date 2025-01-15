@@ -1,7 +1,8 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { AuthContext } from '../../context/AuthContext';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 import Page from '../Page';
 
@@ -10,13 +11,7 @@ import { Logo } from '../icons/Logo';
 import './main.css';
 
 function Main() {
-  const authContext = useContext(AuthContext);
-
-  if (!authContext) {
-    throw new Error('Sign component must be used within an AuthProvider');
-  }
-
-  const { isLoggedIn } = authContext;
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
   return (
     <Page title="WELCOME TO JOURNEY" isNoLogo={true}>

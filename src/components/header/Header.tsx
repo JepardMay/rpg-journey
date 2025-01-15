@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-import { AuthContext } from '../../context/AuthContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../../store';
+import { logout } from '../../reducers/authSlice';
 
 import { StateType } from '../../model';
 
@@ -28,13 +30,8 @@ interface Props {
 function Header({ user, setUser, isNoLogo }: Props) {
   const navigate = useNavigate();
 
-  const authContext = useContext(AuthContext);
-
-  if (!authContext) {
-    throw new Error('Sign component must be used within an AuthProvider');
-  }
-
-  const { isLoggedIn, logout } = authContext;
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const dispatch: AppDispatch = useDispatch();
 
   const [menuState, setMenuState] = useState<boolean>(false);
 
@@ -56,7 +53,7 @@ function Header({ user, setUser, isNoLogo }: Props) {
   }, []);
 
   const handleLogout = () => {
-    logout();
+    dispatch(logout());
     navigate('/', { replace: true });
   };
 

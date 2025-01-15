@@ -1,16 +1,11 @@
 
-import React, { useContext } from 'react'; import { Navigate, Outlet } from 'react-router-dom';
+import React from 'react'; import { Navigate, Outlet } from 'react-router-dom';
 
-import { AuthContext } from '../../context/AuthContext';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 const PrivateRoute = () => {
-  const authContext = useContext(AuthContext);
-
-  if (!authContext) {
-    throw new Error('PrivateRoute must be used within an AuthProvider');
-  }
-
-  const { isLoggedIn } = authContext;
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
   return isLoggedIn ? <Outlet /> : <Navigate to="/login" replace />;
 };

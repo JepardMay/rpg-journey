@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { AuthProvider } from './context/AuthContext';
-
 import { LevelObjectKeys } from './model';
 import { StateType } from './model';
 
-import PrivateRoute from './components/private-route/PrivateRoute';
+// import PrivateRoute from './components/private-route/PrivateRoute';
 
 import Main from './components/main/Main';
 import Sign from './components/sign/Sign';
@@ -123,9 +121,9 @@ function App() {
       path: '/',
       element: <Main/>,
     },
-    {
-      element: <PrivateRoute />,
-      children: [
+    // {
+    //   element: <PrivateRoute />,
+    //   children: [
         {
           path: '/profile',
           element: <Profile
@@ -164,19 +162,15 @@ function App() {
             />
           ),
         },
-      ],
-    },
+    //   ],
+    // },
     {
       path: '/themes',
       element: <Themes user={user} setUser={setUser} />,
     },
   ]);
 
-  return (
-    <AuthProvider>
-      <RouterProvider router={ router } />
-    </AuthProvider>
-  );
+  return <RouterProvider router={ router } />;
 }
 
 export default App;
