@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../store';
+import { updateUser } from '../../reducers/userSlice';
 
 import {
   LEVEL_TYPE,
-  StateType,
   SkillType,
   ActionType,
   HistoryType,
@@ -17,12 +19,10 @@ import { PlusIcon } from '../icons/PlusIcon';
 import { GoBackIcon } from '../icons/GoBackIcon';
 import { CloseIcon } from '../icons/CloseIcon';
 
-interface Props {
-  user: StateType;
-  setUser: (user: StateType) => void;
-}
+function Skill() {
+  const user = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch();
 
-function Skill({ user, setUser }: Readonly<Props>) {
   const navigate = useNavigate();
   
   let timer: ReturnType<typeof setTimeout>;
@@ -62,20 +62,20 @@ function Skill({ user, setUser }: Readonly<Props>) {
     skill: string;
     text: string;
     xp: number;
-    date: Date;
+    date: string;
     checked: boolean;
 
     constructor(action: ActionType, skillName: string) {
       this.skill = skillName;
       this.text = action.text;
       this.xp = action.xp;
-      this.date = new Date();
+      this.date = new Date().toISOString();
       this.checked = false;
     }
   }
 
   const onNavBtnClick = (evt: React.MouseEvent<HTMLElement>, i: number) => {
-    setUser({ ...user, activeTab: `tab-${i + 1}` });
+    dispatch(updateUser({ ...user, activeTab: `tab-${i + 1}` }));
 
     const { target } = evt;
     if (target instanceof HTMLElement) {
@@ -97,13 +97,13 @@ function Skill({ user, setUser }: Readonly<Props>) {
 
     const newItemText = new HistoryItem(action, skill.name);
 
-    setUser({
+    dispatch(updateUser({
       ...user,
       xp: user.xp + action.xp >= 0 ? user.xp + action.xp : 0,
       level: calculateLevel(user.xp, LEVEL_TYPE.USER),
       skills: newSkills,
       history: [...user.history.concat(newItemText)],
-    });
+    }));
 
     setLastAdded(newItemText);
   };
@@ -135,13 +135,13 @@ function Skill({ user, setUser }: Readonly<Props>) {
 
   const onUndoClick = () => {
     setLastAdded(null);
-    setUser({
+    dispatch(updateUser({
       ...user,
       history: user.history.slice(0, -1),
-    });
+    }));
   };
 
-  const skillsList = user.skills.map((skill, i) => (
+  const skillsList = user.skills.map((skill: SkillType, i: number) => (
     <li
       className={
         'horizontal-nav__item' +
@@ -163,7 +163,7 @@ function Skill({ user, setUser }: Readonly<Props>) {
     </li>
   ));
 
-  const tabsList = user.skills.map((skill, i) => (
+  const tabsList = user.skills.map((skill: SkillType, i: number) => (
     <li
       className={
         'tabs__item' + (`tab-${i + 1}` === user.activeTab ? ' is-active' : '')
@@ -215,7 +215,7 @@ function Skill({ user, setUser }: Readonly<Props>) {
   ));
 
   return (
-    <Page title="Skill" user={user} setUser={setUser}>
+    <Page title="Skill">
       <div className="container">
         <button onClick={ () => navigate(-1) } className="link link--go-back">
           <GoBackIcon></GoBackIcon>
@@ -249,8 +249,6 @@ function Skill({ user, setUser }: Readonly<Props>) {
         )}
       </div>
       <Modal
-        user={user}
-        setUser={setUser}
         modalState={modalState}
         setModalState={setModalState}
         inputRef={inputRef}

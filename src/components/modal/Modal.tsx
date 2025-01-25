@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../store';
+import { updateUser } from '../../reducers/userSlice';
 
 import {
   EDIT_TYPE,
-  StateType,
   SkillType,
   ActionType,
   ErrorType,
@@ -15,14 +17,15 @@ import { DeleteIcon } from '../icons/DeleteIcon';
 import './modal.css';
 
 interface Props {
-  user: StateType;
-  setUser: (user: StateType) => void;
   modalState: ModalType;
   setModalState: (modalState: ModalType) => void;
   inputRef: React.Ref<HTMLInputElement>;
 }
 
-function Modal({ user, setUser, modalState, setModalState, inputRef }: Props) {
+function Modal({ modalState, setModalState, inputRef }: Readonly<Props>) {
+  const user = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch();
+
   const [error, setError] = useState<ErrorType>({
     text: null,
     xp: null,
@@ -105,7 +108,7 @@ function Modal({ user, setUser, modalState, setModalState, inputRef }: Props) {
           const isDuplicate =
             user.skills.length > 0
               ? user.skills.some(
-                  (item, index) =>
+                  (item: SkillType, index: number) =>
                     modalState.textInput.toLowerCase() ===
                       item?.name.toLowerCase() &&
                     user.skills.indexOf(modalState.editing as SkillType) !==
@@ -124,10 +127,10 @@ function Modal({ user, setUser, modalState, setModalState, inputRef }: Props) {
               ],
               name: modalState.textInput,
             };
-            setUser({
+            dispatch(updateUser({
               ...user,
               skills: newSkills,
-            });
+            }));
 
             closeModal();
           } else {
@@ -154,7 +157,7 @@ function Modal({ user, setUser, modalState, setModalState, inputRef }: Props) {
             : 0;
 
           const isDuplicate = user.skills[skillIndex].actions.some(
-            (item, index) =>
+            (item: ActionType, index: number) =>
               modalState.textInput.toLowerCase() === item.text.toLowerCase() &&
               user.skills[skillIndex].actions.indexOf(
                 modalState.editing as ActionType,
@@ -175,10 +178,10 @@ function Modal({ user, setUser, modalState, setModalState, inputRef }: Props) {
               text: modalState.textInput,
               xp: Number(modalState.xpInput),
             };
-            setUser({
+            dispatch(updateUser({
               ...user,
               skills: newSkills,
-            });
+            }));
 
             closeModal();
           } else {
@@ -217,7 +220,7 @@ function Modal({ user, setUser, modalState, setModalState, inputRef }: Props) {
       case EDIT_TYPE.SKILL: {
         if (modalState.textInput !== '') {
           const isDuplicate = user.skills.some(
-            (item) =>
+            (item: SkillType) =>
               modalState.textInput.toLowerCase() === item.name.toLowerCase(),
           );
 
@@ -226,10 +229,10 @@ function Modal({ user, setUser, modalState, setModalState, inputRef }: Props) {
               text: null,
             });
             const newSkill = new Skill(modalState.textInput);
-            setUser({
+            dispatch(updateUser({
               ...user,
               skills: [...user.skills.concat(newSkill)],
-            });
+            }));
 
             closeModal();
           } else {
@@ -256,7 +259,7 @@ function Modal({ user, setUser, modalState, setModalState, inputRef }: Props) {
             : 0;
 
           const isDuplicate = user.skills[skillIndex].actions.some(
-            (item) =>
+            (item: ActionType) =>
               modalState.textInput.toLowerCase() === item.text.toLowerCase(),
           );
 
@@ -274,10 +277,10 @@ function Modal({ user, setUser, modalState, setModalState, inputRef }: Props) {
               ...newSkills[skillIndex],
               actions: [...newSkills[skillIndex].actions.concat(newAction)],
             };
-            setUser({
+            dispatch(updateUser({
               ...user,
               skills: newSkills,
-            });
+            }));
 
             closeModal();
           } else {
@@ -317,12 +320,12 @@ function Modal({ user, setUser, modalState, setModalState, inputRef }: Props) {
         const deletedSkillIndex = user.skills.indexOf(
           modalState.editing as SkillType,
         );
-        setUser({
+        dispatch(updateUser({
           ...user,
           skills: user.skills.filter(
-            (skill, i) => i !== deletedSkillIndex && skill,
+            (skill: SkillType, i: number) => i !== deletedSkillIndex && skill,
           ),
-        });
+        }));
 
         closeModal();
         break;
@@ -342,13 +345,13 @@ function Modal({ user, setUser, modalState, setModalState, inputRef }: Props) {
         newSkills[skillIndex] = {
           ...newSkills[skillIndex],
           actions: newSkills[skillIndex].actions.filter(
-            (action, i) => i !== deletedActionIndex && action,
+            (action: ActionType, i: number) => i !== deletedActionIndex && action,
           ),
         };
-        setUser({
+        dispatch(updateUser({
           ...user,
           skills: newSkills,
-        });
+        }));
 
         closeModal();
         break;

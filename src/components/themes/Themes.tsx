@@ -1,17 +1,16 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { StateType } from '../../model';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../store';
+import { updateUser } from '../../reducers/userSlice';
 
 import Page from '../Page';
 import { GoBackIcon } from '../icons/GoBackIcon';
 
-interface Props {
-  user: StateType;
-  setUser: (user: StateType) => void;
-}
+function Themes() {
+  const user = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch();
 
-function Themes({ user, setUser }: Props) {
   const navigate = useNavigate();
   
   const themesItems = [];
@@ -19,10 +18,10 @@ function Themes({ user, setUser }: Props) {
   const onThemeClick = (num: number) => {
     document.body.className = '';
     document.body.classList.add(`theme-${num}`);
-    setUser({
+    dispatch(updateUser({
       ...user,
       theme: `theme-${num}`,
-    });
+    }));
   };
 
   for (let i = 1; i <= 12; i++) {

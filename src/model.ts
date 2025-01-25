@@ -33,7 +33,7 @@ export interface HistoryType {
   skill: string;
   text: string;
   xp: number;
-  date: Date;
+  date: string;
   checked: boolean;
 }
 

@@ -1,9 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../store';
+import { updateUser } from '../../reducers/userSlice';
 
 import {
   LEVEL_TYPE,
-  StateType,
   SkillType,
   ModalType
 } from '../../model';
@@ -14,12 +16,10 @@ import Modal from '../modal/Modal';
 import { PlusIcon } from '../icons/PlusIcon';
 import { GoBackIcon } from '../icons/GoBackIcon';
 
-interface Props {
-  user: StateType;
-  setUser: (user: StateType) => void;
-}
+function Skills() {
+  const user = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch();
 
-function Skills({ user, setUser }: Readonly<Props>) {
   const navigate = useNavigate();
   
   const inputRef = useRef<HTMLInputElement>(null);
@@ -57,13 +57,13 @@ function Skills({ user, setUser }: Readonly<Props>) {
     inputRef.current?.focus();
   };
 
-  const skillsList = user.skills.map((skill, i) => (
+  const skillsList = user.skills.map((skill: SkillType, i: number) => (
     <li className="item" key={skill.name}>
       <div className="skill">
         <NavLink
           to="/skill"
           className="skill__wrapper link"
-          onClick={() => setUser({ ...user, activeTab: `tab-${i + 1}` })}
+          onClick={() => dispatch(updateUser({ ...user, activeTab: `tab-${i + 1}` }))}
         >
           <span className="skill__badge">{skill.level}</span>
           {skill.name}
@@ -86,7 +86,7 @@ function Skills({ user, setUser }: Readonly<Props>) {
   ));
 
   return (
-    <Page title="Skills" user={user} setUser={setUser}>
+    <Page title="Skills">
       <div className="container">
         <button onClick={ () => navigate(-1) } className="link link--go-back">
           <GoBackIcon></GoBackIcon>
@@ -112,8 +112,6 @@ function Skills({ user, setUser }: Readonly<Props>) {
         </button>
       </div>
       <Modal
-        user={user}
-        setUser={setUser}
         modalState={modalState}
         setModalState={setModalState}
         inputRef={inputRef}

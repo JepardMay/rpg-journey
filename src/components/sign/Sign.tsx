@@ -4,11 +4,11 @@ import { NavLink, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../store';
 import { login } from '../../reducers/authSlice';
+import { updateUser } from '../../reducers/userSlice';
 
 import apiService from '../../api.service';
 
 import {
-  StateType,
   SignType,
   ErrorType
 } from '../../model';
@@ -18,19 +18,18 @@ import Page from '../Page';
 import './sign.css';
 
 interface Props {
-  user: StateType;
-  setUser: (user: StateType) => void;
   title: string;
   heading: string;
 }
 
-function Sign({ user, setUser, title, heading }: Props) {
+function Sign({ title, heading }: Readonly<Props>) {
   const location = useLocation();
   const isLogin = location.pathname === '/login';
 
   const navigate = useNavigate();
 
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const user = useSelector((state: RootState) => state.user);
   const dispatch: AppDispatch = useDispatch();
 
   const [signState, setSignState] = useState<SignType>({
@@ -69,7 +68,7 @@ function Sign({ user, setUser, title, heading }: Props) {
           dispatch(login({ accessToken: response.accessToken, refreshToken: response.refreshToken }));
           // Temporary username assignment
           const username = signState.email.split('@')[0];
-          setUser({ ...user, name: username });
+          dispatch(updateUser({ ...user, name: username }));
           //
           navigate('/profile', { replace: true });
         } else {
@@ -84,7 +83,7 @@ function Sign({ user, setUser, title, heading }: Props) {
           dispatch(login({ accessToken: response.accessToken, refreshToken: response.refreshToken }));
           // Temporary username assignment
           const username = signState.email.split('@')[0];
-          setUser({ ...user, name: username });
+          dispatch(updateUser({ ...user, name: username }));
           //
           navigate('/profile', { replace: true });
         } else {

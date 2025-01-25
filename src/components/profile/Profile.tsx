@@ -1,8 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 import {
   LEVEL_TYPE,
-  StateType
+  SkillType,
 } from '../../model';
 import { calculatePercent } from '../../utils/levels';
 
@@ -10,12 +12,10 @@ import Page from '../Page';
 
 import './profile.css';
 
-interface Props {
-  user: StateType;
-}
+function Profile() {
+  const user = useSelector((state: RootState) => state.user);
 
-function Profile({ user }: Readonly<Props>) {
-  const skillsList = user.skills.map((skill) => (
+  const skillsList = user.skills.map((skill: SkillType) => (
     <li className="item" key={'skill-' + skill.name.toLowerCase()}>
       <div className="skill">
         <div className="skill__wrapper">

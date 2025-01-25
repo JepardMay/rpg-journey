@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../store';
+import { updateUser } from '../../reducers/userSlice';
 
 import {
   LEVEL_TYPE,
+  SkillType,
   HistoryType,
-  StateType
 } from '../../model';
 import { calculateLevel } from '../../utils/levels';
 
@@ -15,23 +18,21 @@ import { DeleteIcon } from '../icons/DeleteIcon';
 
 import './history.css';
 
-interface Props {
-  user: StateType;
-  setUser: (user: StateType) => void;
-}
+function History() {
+  const user = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch();
 
-function History({ user, setUser }: Readonly<Props>) {
   const navigate = useNavigate();
   
   useEffect(() => {
-    const uncheckedItems = user.history.map((item) => {
+    const uncheckedItems = user.history.map((item: HistoryType) => {
       if (item.checked) item.checked = false;
       return item;
     });
-    setUser({
+    dispatch(updateUser({
       ...user,
       history: uncheckedItems,
-    });
+    }));
   }, []);
 
   const groupHistoryByDate = (history: HistoryType[]) => {
@@ -72,10 +73,8 @@ function History({ user, setUser }: Readonly<Props>) {
     return groups;
   };
 
-  const formatDate = (date: Date | string): string => {
-    if (typeof date !== 'object') {
-      date = new Date(date);
-    }
+  const formatDate = (dateString: string): string => {
+    const date: Date = new Date(dateString);
 
     const day = String(date.getDate()).padStart(2, '0');
     const monthNames = [
@@ -95,10 +94,10 @@ function History({ user, setUser }: Readonly<Props>) {
 
   const onDeleteClick = () => {
     let newUserXP = user.xp;
-    user.history.forEach(item => {
+    user.history.forEach((item: HistoryType) => {
       if (item.checked) {
         newUserXP -= item.xp;
-        const skill = user.skills.find(skill => skill.name === item.skill); // Find the skill by name
+        const skill = user.skills.find((skill: SkillType) => skill.name === item.skill); // Find the skill by name
         if (skill) {
           const newSkillXP = (skill.xp - item.xp) > 0 ? (skill.xp - item.xp) : 0;
           skill.xp = newSkillXP; // Deduct the XP of the deleted item
@@ -108,12 +107,12 @@ function History({ user, setUser }: Readonly<Props>) {
     });
 
     newUserXP = Math.max(newUserXP, 0);
-    setUser({
+    dispatch(updateUser({
       ...user,
       xp: newUserXP,
       level: calculateLevel(newUserXP, LEVEL_TYPE.USER),
-      history: user.history.filter((item) => !item.checked),
-    });
+      history: user.history.filter((item: HistoryType) => !item.checked),
+    }));
   };
 
 
@@ -121,10 +120,10 @@ function History({ user, setUser }: Readonly<Props>) {
 
   // Function to select all items
   const selectAllItems = () => {
-    const newHistory = user.history.map(item => {
+    const newHistory = user.history.map((item: HistoryType) => {
       return { ...item, checked: !item.checked };
     });
-    setUser({ ...user, history: newHistory });
+    dispatch(updateUser({ ...user, history: newHistory }));
   };
 
   return (
@@ -140,7 +139,7 @@ function History({ user, setUser }: Readonly<Props>) {
             { user.history.length > 0 ?
               <div className="history__wrapper">
                 <button className="btn btn--sm" onClick={ selectAllItems }>Select All</button>
-                { user.history.some((item) => item.checked) && (
+                { user.history.some((item: HistoryType) => item.checked) && (
                   <button
                     className="modal__btn btn btn--icon"
                     type="button"
@@ -170,10 +169,10 @@ function History({ user, setUser }: Readonly<Props>) {
                               onChange={() => {
                                 const newHistory = [...user.history];
                                 newHistory[newHistory.indexOf(item)].checked = !item.checked;
-                                setUser({
+                                dispatch(updateUser({
                                   ...user,
                                   history: newHistory,
-                                });
+                                }));
                               }}
                             />
                             <label htmlFor={`history-record-${index}${i}`}></label>

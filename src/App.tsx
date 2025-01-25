@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { StateType } from './model';
-
-import { initialState } from './constants/initialState';
 
 // import PrivateRoute from './components/private-route/PrivateRoute';
 
@@ -16,19 +15,18 @@ import History from './components/history/History';
 import Themes from './components/themes/Themes';
 
 function App() {
-  const [user, setUser] = useState<StateType>(initialState);
+  const dispatch = useDispatch();
+  const user = useSelector((state: { user: StateType }) => state.user);
 
   useEffect(() => {
     localStorage.setItem('rpg-user-data', JSON.stringify(user));
     document.body.classList.add(user.theme);
-  }, [user]);
+  }, [user, dispatch]);
 
   const router = createBrowserRouter([
     {
       path: '/signup',
       element: <Sign
-        user={user}
-        setUser={setUser}
         title="Sign Up"
         heading="Create an account to start gamifying your life!"
       />,
@@ -36,8 +34,6 @@ function App() {
     {
       path: '/login',
       element: <Sign
-        user={user}
-        setUser={setUser}
         title="Login"
         heading="Sign in to continue gamifying your life!"
       />,
@@ -51,42 +47,31 @@ function App() {
     //   children: [
         {
           path: '/profile',
-          element: <Profile
-            user={ user }
-          />,
+          element: <Profile/>,
         },
         {
           path: '/skills',
           element: (
-            <Skills
-              user={user}
-              setUser={setUser}
-            />
+            <Skills/>
           ),
         },
         {
           path: '/skill',
           element: (
-            <Skill
-              user={user}
-              setUser={setUser}
-            />
+            <Skill/>
           ),
         },
         {
           path: '/history',
           element: (
-            <History
-              user={ user }
-              setUser={ setUser }
-            />
+            <History/>
           ),
         },
     //   ],
     // },
     {
       path: '/themes',
-      element: <Themes user={user} setUser={setUser} />,
+      element: <Themes/>,
     },
   ]);
 
