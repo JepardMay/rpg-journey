@@ -4,6 +4,7 @@ import {
   LEVEL_TYPE,
   StateType
 } from '../../model';
+import { calculatePercent } from '../../utils/levels';
 
 import Page from '../Page';
 
@@ -11,10 +12,9 @@ import './profile.css';
 
 interface Props {
   user: StateType;
-  calculatePercent: (xp: number, level: number, type: string) => string;
 }
 
-function Profile({ user, calculatePercent }: Props) {
+function Profile({ user }: Readonly<Props>) {
   const skillsList = user.skills.map((skill) => (
     <li className="item" key={'skill-' + skill.name.toLowerCase()}>
       <div className="skill">

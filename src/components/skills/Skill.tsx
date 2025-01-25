@@ -9,6 +9,7 @@ import {
   HistoryType,
   ModalType,
 } from '../../model';
+import { calculateLevel, calculatePercent } from '../../utils/levels';
 
 import Page from '../Page';
 import Modal from '../modal/Modal';
@@ -19,11 +20,9 @@ import { CloseIcon } from '../icons/CloseIcon';
 interface Props {
   user: StateType;
   setUser: (user: StateType) => void;
-  calculatePercent: (xp: number, level: number, type: string) => string;
-  calculateLevel: (xp: number, type: string) => number;
 }
 
-function Skill({ user, setUser, calculateLevel, calculatePercent }: Props) {
+function Skill({ user, setUser }: Readonly<Props>) {
   const navigate = useNavigate();
   
   let timer: ReturnType<typeof setTimeout>;
@@ -148,7 +147,7 @@ function Skill({ user, setUser, calculateLevel, calculatePercent }: Props) {
         'horizontal-nav__item' +
         (`tab-${i + 1}` === user.activeTab ? ' is-active' : '')
       }
-      key={`skill-tab-${i}`}
+      key={`skill-tab-${skill.name}`}
     >
       <button
         className="link"
@@ -169,7 +168,7 @@ function Skill({ user, setUser, calculateLevel, calculatePercent }: Props) {
       className={
         'tabs__item' + (`tab-${i + 1}` === user.activeTab ? ' is-active' : '')
       }
-      key={`tab-${i}`}
+      key={`tab-${skill.name}`}
     >
       <div className="skill">
         <div className="skill__wrapper">
@@ -184,8 +183,8 @@ function Skill({ user, setUser, calculateLevel, calculatePercent }: Props) {
         </div>
       </div>
       <ul className="list">
-        {skill.actions.map((action, i) => (
-          <li className="item" key={`action-${i}`}>
+        {skill.actions.map((action) => (
+          <li className="item" key={`action-${action.text}`}>
             <div className="action">
               <button
                 className="action__wrapper"

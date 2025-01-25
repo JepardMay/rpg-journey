@@ -6,6 +6,7 @@ import {
   HistoryType,
   StateType
 } from '../../model';
+import { calculateLevel } from '../../utils/levels';
 
 import Page from '../Page';
 
@@ -17,10 +18,9 @@ import './history.css';
 interface Props {
   user: StateType;
   setUser: (user: StateType) => void;
-  calculateLevel: (xp: number, type: string) => number;
 }
 
-function History({ user, setUser, calculateLevel }: Props) {
+function History({ user, setUser }: Readonly<Props>) {
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -106,8 +106,8 @@ function History({ user, setUser, calculateLevel }: Props) {
         }
       }
     });
-    
-    newUserXP = newUserXP > 0 ? newUserXP : 0,
+
+    newUserXP = Math.max(newUserXP, 0);
     setUser({
       ...user,
       xp: newUserXP,
@@ -115,6 +115,7 @@ function History({ user, setUser, calculateLevel }: Props) {
       history: user.history.filter((item) => !item.checked),
     });
   };
+
 
   const groupedHistory = groupHistoryByDate(user.history);
 

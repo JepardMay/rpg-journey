@@ -7,6 +7,7 @@ import {
   SkillType,
   ModalType
 } from '../../model';
+import { calculatePercent } from '../../utils/levels';
 
 import Page from '../Page';
 import Modal from '../modal/Modal';
@@ -16,10 +17,9 @@ import { GoBackIcon } from '../icons/GoBackIcon';
 interface Props {
   user: StateType;
   setUser: (user: StateType) => void;
-  calculatePercent: (xp: number, level: number, type: string) => string;
 }
 
-function Skills({ user, setUser, calculatePercent }: Props) {
+function Skills({ user, setUser }: Readonly<Props>) {
   const navigate = useNavigate();
   
   const inputRef = useRef<HTMLInputElement>(null);
@@ -58,7 +58,7 @@ function Skills({ user, setUser, calculatePercent }: Props) {
   };
 
   const skillsList = user.skills.map((skill, i) => (
-    <li className="item" key={`skill-${i}`}>
+    <li className="item" key={skill.name}>
       <div className="skill">
         <NavLink
           to="/skill"
@@ -93,8 +93,7 @@ function Skills({ user, setUser, calculatePercent }: Props) {
         </button>
         <div className="level">
           <p className="level__text">
-            Level:&nbsp;
-            <span className="level__badge">{user.level}</span>
+            Level:&nbsp; <span className="level__badge">{user.level}</span>
           </p>
           <div className="level__progress">
             <div
