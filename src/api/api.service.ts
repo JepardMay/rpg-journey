@@ -1,6 +1,6 @@
-import { API_BASE_URL, ENDPOINTS } from './api.config';
+import { API_BASE_URL, ENDPOINTS } from '../api/api.config';
 
-import { SignType } from './model';
+import { SignType } from '../models';
 
 class APIService {
   private accessToken: string | null = null;

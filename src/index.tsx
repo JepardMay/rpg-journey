@@ -5,13 +5,13 @@ import store from './store';
 import App from './App';
 
 import 'normalize.css';
-import './styles/fonts.css';
-import './styles/variables.css';
-import './styles/global.css';
-import './styles/themes.css';
-import './styles/animations.css';
-import './styles/common.css';
-import './styles/colors.css';
+import './assets/styles/global/fonts.css';
+import './assets/styles/global/variables.css';
+import './assets/styles/global/global.css';
+import './assets/styles/global/themes.css';
+import './assets/styles/global/animations.css';
+import './assets/styles/global/common.css';
+import './assets/styles/global/colors.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

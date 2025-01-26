@@ -4,7 +4,7 @@ interface Props {
   children: ReactNode;
 }
 
-function Wrapper(props: Props) {
+function Wrapper(props: Readonly<Props>) {
   return <div className="wrapper">{props.children}</div>;
 }
 

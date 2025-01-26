@@ -1,12 +1,10 @@
 import React, { ReactNode, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { StateType } from '../model';
-
 import Wrapper from './Wrapper';
-import Loading from './loading/Loading';
-import Header from './header/Header';
-import Footer from './footer/Footer';
+import Loading from './Loading';
+import Header from './Header';
+import Footer from './Footer';
 
 interface Props {
   title: string;
@@ -14,11 +12,9 @@ interface Props {
   isNoLogo?: boolean;
   isNoFooter?: boolean;
   children: ReactNode;
-  user?: StateType;
-  setUser?: (user: StateType) => void;
 }
 
-function Page(props: Props) {
+function Page(props: Readonly<Props>) {
   const location = useLocation();
   
   const [loading, setLoading] = useState<boolean>(true);
@@ -31,8 +27,8 @@ function Page(props: Props) {
 
   return (
     <Wrapper>
-      {loading || (!props.isNoHeader && <Header user={props.user} setUser={props.setUser} isNoLogo={props.isNoLogo} />)}
-      { loading ? <Loading></Loading> : <main>{ props.children }</main> }
+      {loading || (!props.isNoHeader && <Header isNoLogo={props.isNoLogo} />)}
+      { loading ? <Loading/> : <main>{ props.children }</main> }
       {loading || (!props.isNoFooter && <Footer />)}
     </Wrapper>
   );

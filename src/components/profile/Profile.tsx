@@ -5,12 +5,12 @@ import { RootState } from '../../store';
 import {
   LEVEL_TYPE,
   SkillType,
-} from '../../model';
+} from '../../models';
 import { calculatePercent } from '../../utils/levels';
 
-import Page from '../Page';
+import Page from '../common/Page';
 
-import './profile.css';
+import '../../assets/styles/components/profile.css';
 
 function Profile() {
   const user = useSelector((state: RootState) => state.user);

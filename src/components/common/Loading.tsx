@@ -2,7 +2,7 @@ import React from 'react';
 
 import { LogoImg } from '../icons/LogoImg';
 
-import './loading.css';
+import '../../assets/styles/components/loading.css';
 
 function Loading() {
   return (

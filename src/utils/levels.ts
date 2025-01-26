@@ -1,4 +1,4 @@
-import { LevelObjectKeys } from '../model';
+import { LevelObjectKeys } from '../models';
 
 export const levels: LevelObjectKeys = {
   skill: [0, 300, 900, 2700, 6500, 1400, 23000, 34000, 48000, 64000, 85000],

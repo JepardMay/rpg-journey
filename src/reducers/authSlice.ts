@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import apiService from '../api.service';
+import apiService from '../api/api.service';
 
 interface AuthState {
   isLoggedIn: boolean;

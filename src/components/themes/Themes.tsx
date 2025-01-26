@@ -1,15 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../store';
+import { RootState, AppDispatch } from '../../store';
 import { updateUser } from '../../reducers/userSlice';
 
-import Page from '../Page';
+import Page from '../common/Page';
 import { GoBackIcon } from '../icons/GoBackIcon';
 
 function Themes() {
   const user = useSelector((state: RootState) => state.user);
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const navigate = useNavigate();
   

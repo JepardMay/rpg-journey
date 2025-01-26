@@ -1,26 +1,26 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../store';
+import { RootState, AppDispatch } from '../../store';
 import { updateUser } from '../../reducers/userSlice';
 
 import {
   LEVEL_TYPE,
   SkillType,
-  HistoryType,
-} from '../../model';
+  HistoryType
+} from '../../models';
 import { calculateLevel } from '../../utils/levels';
 
-import Page from '../Page';
+import Page from '../common/Page';
 
 import { GoBackIcon } from '../icons/GoBackIcon';
 import { DeleteIcon } from '../icons/DeleteIcon';
 
-import './history.css';
+import '../../assets/styles/components/history.css';
 
 function History() {
   const user = useSelector((state: RootState) => state.user);
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const navigate = useNavigate();
   

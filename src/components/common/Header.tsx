@@ -5,9 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../store';
 import { logout } from '../../reducers/authSlice';
 
-import { StateType } from '../../model';
-
-import Sorting from '../sorting/Sorting';
+import Sorting from './Sorting';
 
 import { LogoImg } from '../icons/LogoImg';
 import { Burger } from '../icons/Burger';
@@ -18,19 +16,18 @@ import { HistoryIcon } from '../icons/HistoryIcon';
 import { FaqIcon } from '../icons/FaqIcon';
 import { SettingsIcon } from '../icons/SettingsIcon';
 
-import './header.css';
-import './menu.css';
+import '../../assets/styles/components/header.css';
+import '../../assets/styles/components/menu.css';
 
 interface Props {
-  user?: StateType;
-  setUser?: (user: StateType) => void;
   isNoLogo?: boolean;
 }
 
-function Header({ user, setUser, isNoLogo }: Props) {
+function Header({ isNoLogo }: Readonly<Props>) {
   const navigate = useNavigate();
 
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const user = useSelector((state: RootState) => state.user);
   const dispatch: AppDispatch = useDispatch();
 
   const [menuState, setMenuState] = useState<boolean>(false);
@@ -82,7 +79,7 @@ function Header({ user, setUser, isNoLogo }: Props) {
           {!isNoLogo && <div className="header__logo">
             <Logo></Logo>
           </div>}
-          {user && setUser && <Sorting user={user} setUser={setUser}></Sorting>}
+          {user && <Sorting/>}
         </div>
       </div>
       <div className="menu" onClick={onMenuHandler}>

@@ -1,9 +1,8 @@
 import React from 'react';
-// import { NavLink } from 'react-router-dom';
 
 import { Logo } from '../icons/Logo';
 
-import './footer.css';
+import '../../assets/styles/components/footer.css';
 
 function Footer() {
   return (

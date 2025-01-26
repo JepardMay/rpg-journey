@@ -1,24 +1,24 @@
 import React, { useState, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../store';
+import { RootState, AppDispatch } from '../../store';
 import { updateUser } from '../../reducers/userSlice';
 
 import {
   LEVEL_TYPE,
   SkillType,
   ModalType
-} from '../../model';
+} from '../../models';
 import { calculatePercent } from '../../utils/levels';
 
-import Page from '../Page';
+import Page from '../common/Page';
 import Modal from '../modal/Modal';
 import { PlusIcon } from '../icons/PlusIcon';
 import { GoBackIcon } from '../icons/GoBackIcon';
 
 function Skills() {
   const user = useSelector((state: RootState) => state.user);
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const navigate = useNavigate();
   

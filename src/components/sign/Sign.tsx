@@ -6,16 +6,16 @@ import { RootState, AppDispatch } from '../../store';
 import { login } from '../../reducers/authSlice';
 import { updateUser } from '../../reducers/userSlice';
 
-import apiService from '../../api.service';
+import apiService from '../../api/api.service';
 
 import {
   SignType,
   ErrorType
-} from '../../model';
+} from '../../models';
 
-import Page from '../Page';
+import Page from '../common/Page';
 
-import './sign.css';
+import '../../assets/styles/components/sign.css';
 
 interface Props {
   title: string;

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { StateType } from '../model';
+import { StateType } from '../models';
 import { initialState } from '../constants/initialState';
 
 const userSlice = createSlice({

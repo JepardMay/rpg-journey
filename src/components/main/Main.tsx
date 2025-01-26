@@ -4,11 +4,11 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 
-import Page from '../Page';
+import Page from '../common/Page';
 
 import { Logo } from '../icons/Logo';
 
-import './main.css';
+import '../../assets/styles/components/main.css';
 
 function Main() {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);

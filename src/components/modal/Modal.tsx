@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../store';
+import { RootState, AppDispatch } from '../../store';
 import { updateUser } from '../../reducers/userSlice';
 
 import {
@@ -9,12 +9,12 @@ import {
   ActionType,
   ErrorType,
   ModalType,
-} from '../../model';
+} from '../../models';
 
 import { CloseIcon } from '../icons/CloseIcon';
 import { DeleteIcon } from '../icons/DeleteIcon';
 
-import './modal.css';
+import '../../assets/styles/components/modal.css';
 
 interface Props {
   modalState: ModalType;
@@ -24,7 +24,7 @@ interface Props {
 
 function Modal({ modalState, setModalState, inputRef }: Readonly<Props>) {
   const user = useSelector((state: RootState) => state.user);
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const [error, setError] = useState<ErrorType>({
     text: null,

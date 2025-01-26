@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../../store';
+import { updateUser } from '../../reducers/userSlice';
 
-import { StateType } from '../../model';
+import { SkillType, ActionType } from '../../models';
 
-import './sorting.css';
+import '../../assets/styles/components/sorting.css';
 
-interface Props {
-  user: StateType;
-  setUser: (user: StateType) => void;
-}
+function Sorting() {
+  const user = useSelector((state: RootState) => state.user);
+  const dispatch: AppDispatch = useDispatch();
 
-function Sorting({ user, setUser }: Props) {
   const location = useLocation();
   
   const [listState, setListState] = useState<boolean>(false);
@@ -43,29 +44,29 @@ function Sorting({ user, setUser }: Props) {
   const sort = (currentSort: string) => {
     if (location.pathname === '/skills') {
       if (currentSort === 'z-a') {
-        setUser({
+        dispatch(updateUser({
           ...user,
-          skills: user.skills.sort((a, b) => b.name.localeCompare(a.name)),
+          skills: user.skills.sort((a: SkillType, b: SkillType) => b.name.localeCompare(a.name)),
           skillsSorting: 'Z-A',
-        });
+        }));
       } else if (currentSort === 'xp-descent') {
-        setUser({
+        dispatch(updateUser({
           ...user,
-          skills: user.skills.sort((a, b) => a.xp - b.xp),
+          skills: user.skills.sort((a: SkillType, b: SkillType) => a.xp - b.xp),
           skillsSorting: 'XP ↓',
-        });
+        }));
       } else if (currentSort === 'xp-ascent') {
-        setUser({
+        dispatch(updateUser({
           ...user,
-          skills: user.skills.sort((a, b) => b.xp - a.xp),
+          skills: user.skills.sort((a: SkillType, b: SkillType) => b.xp - a.xp),
           skillsSorting: 'XP ↑',
-        });
+        }));
       } else {
-        setUser({
+        dispatch(updateUser({
           ...user,
-          skills: user.skills.sort((a, b) => a.name.localeCompare(b.name)),
+          skills: user.skills.sort((a: SkillType, b: SkillType) => a.name.localeCompare(b.name)),
           skillsSorting: 'A-Z',
-        });
+        }));
       }
     }
 
@@ -73,47 +74,47 @@ function Sorting({ user, setUser }: Props) {
       if (currentSort === 'z-a') {
         const newSkills = [...user.skills];
         newSkills.forEach((skill) => {
-          skill.actions.sort((a, b) => b.text.localeCompare(a.text));
+          skill.actions.sort((a: ActionType, b: ActionType) => b.text.localeCompare(a.text));
         });
 
-        setUser({
+        dispatch(updateUser({
           ...user,
           skills: newSkills,
           actionsSorting: 'Z-A',
-        });
+        }));
       } else if (currentSort === 'xp-descent') {
         const newSkills = [...user.skills];
         newSkills.forEach((skill) => {
-          skill.actions.sort((a, b) => a.xp - b.xp);
+          skill.actions.sort((a: ActionType, b: ActionType) => a.xp - b.xp);
         });
 
-        setUser({
+        dispatch(updateUser({
           ...user,
           skills: newSkills,
           actionsSorting: 'XP ↓',
-        });
+        }));
       } else if (currentSort === 'xp-ascent') {
         const newSkills = [...user.skills];
         newSkills.forEach((skill) => {
-          skill.actions.sort((a, b) => b.xp - a.xp);
+          skill.actions.sort((a: ActionType, b: ActionType) => b.xp - a.xp);
         });
 
-        setUser({
+        dispatch(updateUser({
           ...user,
           skills: newSkills,
           actionsSorting: 'XP ↑',
-        });
+        }));
       } else {
         const newSkills = [...user.skills];
         newSkills.forEach((skill) => {
-          skill.actions.sort((a, b) => a.text.localeCompare(b.text));
+          skill.actions.sort((a: ActionType, b: ActionType) => a.text.localeCompare(b.text));
         });
 
-        setUser({
+        dispatch(updateUser({
           ...user,
           skills: newSkills,
           actionsSorting: 'A-Z',
-        });
+        }));
       }
     }
 
