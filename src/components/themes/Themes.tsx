@@ -1,40 +1,24 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../store';
 import { updateUser } from '../../reducers/userSlice';
 
 import Page from '../common/Page';
+import ThemeButton from './ThemeButton';
 import { GoBackIcon } from '../icons';
 
 function Themes() {
-  const user = useSelector((state: RootState) => state.user);
+  const { theme } = useSelector((state: RootState) => state.user);
   const dispatch: AppDispatch = useDispatch();
 
   const navigate = useNavigate();
-  
-  const themesItems = [];
 
-  const onThemeClick = (num: number) => {
-    document.body.className = '';
-    document.body.classList.add(`theme-${num}`);
-    dispatch(updateUser({
-      ...user,
-      theme: `theme-${num}`,
-    }));
-  };
-
-  for (let i = 1; i <= 12; i++) {
-    themesItems.push(
-      <li className="item" key={`theme-${i}`}>
-        <button
-          className={`theme-btn theme-${i}`}
-          type="button"
-          onClick={() => onThemeClick(i)}
-        ></button>
-      </li>,
-    );
-  }
+  const onThemeClick = useCallback((num: number) => {
+    const newTheme = `theme-${num}`;
+    document.body.className = newTheme;
+    dispatch(updateUser({ theme: newTheme }));
+  }, [dispatch]);
 
   return (
     <Page title="Themes">
@@ -44,7 +28,17 @@ function Themes() {
             <GoBackIcon></GoBackIcon>
           </button>
           <h2 className="title">Themes</h2>
-          <ul className="list list--grid">{themesItems}</ul>
+          <ul className="list list--grid">
+            { Array.from({ length: 12 }, (_, index) => (
+              <ThemeButton
+                key={`theme-${index + 1}`}
+                number={index + 1}
+                isActive={theme === `theme-${index + 1}`}
+                onClick={() => onThemeClick(index + 1)}
+              />
+            ))
+            }
+          </ul>
         </div>
       </div>
     </Page>

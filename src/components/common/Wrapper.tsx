@@ -4,8 +4,8 @@ interface Props {
   children: ReactNode;
 }
 
-function Wrapper(props: Readonly<Props>) {
-  return <div className="wrapper">{props.children}</div>;
+function Wrapper({ children }: Readonly<Props>) {
+  return <div className="wrapper">{children}</div>;
 }
 
 export default Wrapper;

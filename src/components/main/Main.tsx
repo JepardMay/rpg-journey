@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 
@@ -13,6 +12,13 @@ import '../../assets/styles/components/main.css';
 function Main() {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
+  const buttonConfig: Record<string, { to: string; text: string }> = {
+    true: { to: "/profile", text: "Go To Dashboard" },
+    false: { to: "/signup", text: "Start Now" },
+  };
+
+  const { to, text } = buttonConfig[String(isLoggedIn)];
+
   return (
     <Page title="WELCOME TO JOURNEY" isNoLogo={true}>
       <div className="main">
@@ -20,16 +26,13 @@ function Main() {
           <h1 className="main__title title title--xl">
             <span>Welcome To </span>
             <span className="main__logo">
-              <Logo></Logo>
+              <Logo/>
             </span>
             <span> -&nbsp;Your Tool to&nbsp;Gamifying Your Life</span>
           </h1>
-          { isLoggedIn ||
-            <NavLink to="/signup" className="main__btn btn">Start Now</NavLink>
-          }
-          { isLoggedIn &&
-            <NavLink to="/profile" className="main__btn btn">Go To Dashboard</NavLink>
-          }
+          <NavLink to={to} className="main__btn btn">
+            {text}
+          </NavLink>
         </div>
         <div className="container">
         </div>
@@ -37,5 +40,6 @@ function Main() {
     </Page>
   );
 }
+
 
 export default Main;
