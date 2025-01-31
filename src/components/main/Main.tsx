@@ -6,7 +6,7 @@ import { RootState } from '../../store';
 
 import Page from '../common/Page';
 
-import { Logo } from '../icons/Logo';
+import { Logo } from '../icons';
 
 import '../../assets/styles/components/main.css';
 

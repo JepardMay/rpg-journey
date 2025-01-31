@@ -11,8 +11,7 @@ import {
   ModalType,
 } from '../../models';
 
-import { CloseIcon } from '../icons/CloseIcon';
-import { DeleteIcon } from '../icons/DeleteIcon';
+import { CloseIcon, DeleteIcon } from '../icons';
 
 import '../../assets/styles/components/modal.css';
 

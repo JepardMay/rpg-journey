@@ -5,7 +5,7 @@ import { RootState, AppDispatch } from '../../store';
 import { updateUser } from '../../reducers/userSlice';
 
 import Page from '../common/Page';
-import { GoBackIcon } from '../icons/GoBackIcon';
+import { GoBackIcon } from '../icons';
 
 function Themes() {
   const user = useSelector((state: RootState) => state.user);

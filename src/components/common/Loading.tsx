@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { LogoImg } from '../icons/LogoImg';
+import { LogoImg } from '../icons';
 
 import '../../assets/styles/components/loading.css';
 
 function Loading() {
   return (
-    <div className="loading" style={{ backgroundColor: '#B7DEEF' }}>
+    <div className="loading">
       <LogoImg></LogoImg>
     </div>
   );

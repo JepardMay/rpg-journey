@@ -13,8 +13,7 @@ import { calculateLevel } from '../../utils/levels';
 
 import Page from '../common/Page';
 
-import { GoBackIcon } from '../icons/GoBackIcon';
-import { DeleteIcon } from '../icons/DeleteIcon';
+import { GoBackIcon, DeleteIcon } from '../icons';
 
 import '../../assets/styles/components/history.css';
 

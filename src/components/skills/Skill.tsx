@@ -15,9 +15,7 @@ import { calculateLevel, calculatePercent } from '../../utils/levels';
 
 import Page from '../common/Page';
 import Modal from '../modal/Modal';
-import { PlusIcon } from '../icons/PlusIcon';
-import { GoBackIcon } from '../icons/GoBackIcon';
-import { CloseIcon } from '../icons/CloseIcon';
+import { PlusIcon, GoBackIcon, CloseIcon } from '../icons';
 
 function Skill() {
   const user = useSelector((state: RootState) => state.user);
