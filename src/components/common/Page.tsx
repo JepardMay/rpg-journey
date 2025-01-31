@@ -1,5 +1,10 @@
-import React, { ReactNode, useState, useEffect } from 'react';
+import React, { ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
+
+import { useSelector } from 'react-redux'
+import { RootState } from '../../store';
+
+import { usePageEffect } from '../../hooks/usePageEffect';
 
 import Wrapper from './Wrapper';
 import Loading from './Loading';
@@ -14,22 +19,23 @@ interface Props {
   children: ReactNode;
 }
 
-function Page(props: Readonly<Props>) {
+function Page({ title, isNoHeader, isNoLogo, isNoFooter, children }: Readonly<Props>) {
   const location = useLocation();
   
-  const [loading, setLoading] = useState<boolean>(true);
+  const isLoading = useSelector((state: RootState) => state.loading.isLoading);
 
-  useEffect(() => {
-    document.title = (location.pathname === '/' ? props.title : `${props.title} | JOURNEY`);
-    window.scrollTo(0, 0);
-    setLoading(false);
-  }, [props.title]);
+  usePageEffect(title, location.pathname);
+
+  if (isLoading) return <Loading />;
+
+  const header = !isNoHeader && <Header isNoLogo={isNoLogo} />;
+  const footer = !isNoFooter && <Footer />;
 
   return (
     <Wrapper>
-      {loading || (!props.isNoHeader && <Header isNoLogo={props.isNoLogo} />)}
-      { loading ? <Loading/> : <main>{ props.children }</main> }
-      {loading || (!props.isNoFooter && <Footer />)}
+      {header}
+      <main>{children}</main>
+      {footer}
     </Wrapper>
   );
 }
